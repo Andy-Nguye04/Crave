@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crave - Join</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#eceeea",
+                        "background": "#f8faf6",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e1e3df",
+                        "surface-container-high": "#e7e9e5",
+                        "primary-fixed": "#b1f0ce",
+                        "outline": "#707973",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#0f5238",
+                        "secondary": "#396847",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1a",
+                        "on-surface-variant": "#404943"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-morphism {
+            background: rgba(248, 250, 246, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .botanical-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background font-body text-on-surface selection:bg-primary-fixed selection:text-primary">
+    <!-- Hero Background Section -->
+    <div class="fixed inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10"></div>
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8uRfXm3swg8laVnK1r07oBDxXyHuCW-n_BM5IrqYm-2VAVpq7kcjQoK5EFr9v2vDNArF-c-Tq2sJW0u4OGU4aWzfkJIBQ8YaqD8V6n7h3jml883lbjki124dKZOLiakAj7DyS5LYaqPxCPKc893fTakC7oUDeErqPu3E2nkDXVXJx6v_RRB_LyzDo33j_kexVObRftADs9mBDC-Y-eB8GHLpX9d0-b9NA70-FvTCZFarhskV1aCkapgxCKfsERjKVPSS4taZae-E"
+            alt="Crave Culinary Experience" class="w-full h-full object-cover">
+    </div>
+
+    <main class="relative z-20 min-h-screen flex items-center justify-center px-6 py-12">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-10 space-y-3">
+                <h1 class="font-headline text-5xl font-extrabold tracking-tight text-primary">Crave</h1>
+                <div class="space-y-1">
+                    <h2 class="font-headline text-2xl font-bold text-on-surface">Create Your Kitchen</h2>
+                    <p class="text-on-surface-variant font-medium">Join Crave today.</p>
+                </div>
+            </div>
+
+            <div class="glass-morphism p-8 md:p-10 rounded-[2rem] shadow-2xl shadow-on-surface/5 border border-outline-variant/10">
+                <div id="auth-error" class="hidden mb-6 p-4 rounded-xl bg-error/10 text-error text-center font-bold text-sm"></div>
+
+                <form id="signup-form" class="space-y-6">
+                    <div class="group">
+                        <label for="email" class="block text-sm font-semibold text-on-surface-variant mb-2 ml-4">Email Address</label>
+                        <input type="email" id="email" class="w-full px-6 py-4 bg-surface-container-high rounded-full border-none focus:ring-2 focus:ring-primary-fixed focus:bg-primary-fixed/10 transition-all placeholder:text-outline/50 outline-none" required placeholder="chef@crave.app">
+                    </div>
+
+                    <div class="group">
+                        <label for="password" class="block text-sm font-semibold text-on-surface-variant mb-2 ml-4">Password</label>
+                        <input type="password" id="password" class="w-full px-6 py-4 bg-surface-container-high rounded-full border-none focus:ring-2 focus:ring-primary-fixed focus:bg-primary-fixed/10 transition-all placeholder:text-outline/50 outline-none" required placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="w-full botanical-gradient py-4 rounded-full text-on-primary font-bold text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-[0.97] transition-all">
+                        Create Account
+                    </button>
+                </form>
+
+                <p class="mt-8 text-center text-on-surface-variant font-medium">
+                    Already have a kitchen? 
+                    <a href="index.html" class="text-primary font-bold hover:underline">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
