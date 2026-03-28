@@ -1,7 +1,8 @@
 /**
- * Cooking mode: load recipe by session id, step navigation, Gemini Live WebSocket (TEXT).
+ * Cooking mode: recipe steps + Gemini Live Audio via CraveAudio engine.
  *
  * Expects window.CRAVE_API_BASE and query ?session=<uuid> from the import flow.
+ * Requires crave-audio.js to be loaded first (provides window.CraveAudio).
  */
 (function () {
     "use strict";
@@ -10,6 +11,7 @@
     var params = new URLSearchParams(window.location.search);
     var sessionId = params.get("session");
 
+    // DOM elements
     var titleEl = document.getElementById("crave-recipe-title");
     var stepLabelEl = document.getElementById("crave-step-label");
     var progressEl = document.getElementById("crave-progress");
@@ -23,13 +25,16 @@
     var btnPrev = document.getElementById("crave-step-prev");
     var btnNext = document.getElementById("crave-step-next");
     var btnClose = document.getElementById("crave-close");
-    var btnFast = document.getElementById("crave-fast-forward");
-    var promptBar = document.getElementById("crave-prompt-bar");
+    var btnMute = document.getElementById("crave-mute-toggle");
+    var startOverlay = document.getElementById("crave-start-overlay");
+    var startBtn = document.getElementById("crave-start-btn");
 
+    // State
     var recipe = null;
     var steps = [];
     var stepIdx = 0;
     var ws = null;
+    var craveAudio = null;
 
     function wsUrl() {
         var u = base.replace(/^http/, "ws").replace(/\/$/, "");
@@ -44,28 +49,20 @@
         if (wsStatusEl) wsStatusEl.textContent = t;
     }
 
+    // ---- Step rendering ----
+
     function renderStep() {
         if (!steps.length) return;
         var s = steps[stepIdx];
         var n = stepIdx + 1;
-        if (stepLabelEl) {
-            stepLabelEl.textContent = "Step " + n + " of " + steps.length;
-        }
-        if (progressEl) {
-            progressEl.style.width = Math.round((n / steps.length) * 100) + "%";
-        }
+        if (stepLabelEl) stepLabelEl.textContent = "Step " + n + " of " + steps.length;
+        if (progressEl) progressEl.style.width = Math.round((n / steps.length) * 100) + "%";
         if (instructionEl) instructionEl.textContent = s.instruction || "";
-        if (detailEl) {
-            detailEl.textContent = s.visual_context || "";
-        }
+        if (detailEl) detailEl.textContent = s.visual_context || "";
         if (btnPrev) btnPrev.disabled = stepIdx <= 0;
-        /* Last step: next control finishes to cooking-mode-finish.html */
         if (btnNext) {
             btnNext.disabled = steps.length === 0;
-            btnNext.title =
-                steps.length && stepIdx >= steps.length - 1
-                    ? "Finish recipe"
-                    : "Next step";
+            btnNext.title = stepIdx >= steps.length - 1 ? "Finish recipe" : "Next step";
         }
     }
 
@@ -77,9 +74,9 @@
             chip.className =
                 "flex-shrink-0 flex items-center gap-3 bg-surface-container-lowest py-2.5 px-4 rounded-full border border-outline-variant/20";
             chip.innerHTML =
-                "<div class=\"flex flex-col\"><span class=\"font-semibold text-sm\">" +
+                '<div class="flex flex-col"><span class="font-semibold text-sm">' +
                 escapeHtml(ing.item) +
-                "</span><span class=\"text-xs text-on-surface-variant\">" +
+                '</span><span class="text-xs text-on-surface-variant">' +
                 escapeHtml(ing.amount || "") +
                 "</span></div>";
             ingredientsEl.appendChild(chip);
@@ -92,6 +89,23 @@
         return d.innerHTML;
     }
 
+    // ---- WebSocket ----
+
+    function notifyStepChanged() {
+        if (!ws || ws.readyState !== WebSocket.OPEN) return;
+        ws.send(JSON.stringify({
+            type: "step_changed",
+            step_number: stepIdx + 1,
+        }));
+    }
+
+    function navigateToStep(stepNumber) {
+        var idx = stepNumber - 1;
+        if (idx < 0 || idx >= steps.length) return;
+        stepIdx = idx;
+        renderStep();
+    }
+
     function connectWs() {
         if (!sessionId) return;
         try {
@@ -101,29 +115,41 @@
             return;
         }
         setWsStatus("Connecting…");
+        ws.binaryType = "arraybuffer";
+
         ws.onopen = function () {
-            setWsStatus("Live ready");
+            setWsStatus("Connected");
+            // Wire audio engine to the open socket
+            if (craveAudio) {
+                craveAudio.attachWs(ws);
+                craveAudio.start();
+            }
         };
         ws.onclose = function () {
             setWsStatus("Disconnected");
         };
         ws.onerror = function () {
-            setWsStatus("Error");
+            setWsStatus("Connection error");
         };
         ws.onmessage = function (ev) {
+            // Binary frame = audio from Gemini
+            if (ev.data instanceof ArrayBuffer) {
+                if (craveAudio) craveAudio.playChunk(ev.data);
+                return;
+            }
+
+            // Text frame = JSON control message
             try {
                 var msg = JSON.parse(ev.data);
             } catch (e) {
                 return;
             }
+
             if (msg.type === "live_ready") {
-                setWsStatus("Chef online");
-            } else if (msg.type === "model_text" && msg.text) {
-                setChefStatus(msg.text);
-            } else if (msg.type === "transcription" && msg.text) {
-                setChefStatus(
-                    (msg.role === "user" ? "You: " : "Chef: ") + msg.text,
-                );
+                setWsStatus("Crave is live");
+                setChefStatus("Crave is warming up…");
+            } else if (msg.type === "navigate_step" && msg.step_number) {
+                navigateToStep(msg.step_number);
             } else if (msg.type === "kitchen_timer" && msg.duration_seconds) {
                 showTimer(msg.duration_seconds);
             } else if (msg.type === "error" && msg.message) {
@@ -131,6 +157,8 @@
             }
         };
     }
+
+    // ---- Timer ----
 
     function showTimer(seconds) {
         if (!timerBanner) {
@@ -151,19 +179,39 @@
         }, 1000);
     }
 
-    function sendUserText(text) {
-        if (!ws || ws.readyState !== WebSocket.OPEN) {
-            setWsStatus("Connect the API (see README) to chat with the chef.");
-            return;
+    // ---- Start flow (user gesture required for mic + audio) ----
+
+    async function startCrave() {
+        if (startOverlay) startOverlay.classList.add("hidden");
+
+        try {
+            craveAudio = new window.CraveAudio();
+            // Show interim transcripts in the chef status bar
+            craveAudio.onTranscript = function (text, isFinal) {
+                if (isFinal) {
+                    setChefStatus("You said: "" + text + """);
+                } else {
+                    setChefStatus("Hearing: " + text + "…");
+                }
+            };
+            await craveAudio.init();
+            setChefStatus("Mic ready — connecting to Crave…");
+        } catch (err) {
+            console.error("Mic error:", err);
+            setChefStatus("Mic access denied");
         }
-        ws.send(JSON.stringify({ type: "user_text", text: text }));
+
+        connectWs();
     }
+
+    // ---- Navigation event handlers ----
 
     if (btnPrev) {
         btnPrev.addEventListener("click", function () {
             if (stepIdx > 0) {
                 stepIdx -= 1;
                 renderStep();
+                notifyStepChanged();
             }
         });
     }
@@ -173,33 +221,37 @@
             if (stepIdx < steps.length - 1) {
                 stepIdx += 1;
                 renderStep();
+                notifyStepChanged();
             } else {
+                // Last step — clean up and go to finish
+                if (craveAudio) craveAudio.stop();
+                if (ws) ws.close();
                 window.location.href =
-                    "cooking-mode-finish.html?session=" +
-                    encodeURIComponent(sessionId);
+                    "cooking-mode-finish.html?session=" + encodeURIComponent(sessionId);
             }
         });
     }
     if (btnClose) {
         btnClose.addEventListener("click", function () {
+            if (craveAudio) craveAudio.stop();
+            if (ws) ws.close();
             window.location.href = "tracker.html";
         });
     }
-    if (btnFast) {
-        btnFast.addEventListener("click", function () {
-            sendUserText(
-                "Please briefly recap the current step and ask if I am ready to continue.",
-            );
+    if (btnMute) {
+        btnMute.addEventListener("click", function () {
+            if (!craveAudio) return;
+            var muted = craveAudio.toggleMute();
+            var icon = btnMute.querySelector(".material-symbols-outlined");
+            if (icon) icon.textContent = muted ? "mic_off" : "mic";
+            setChefStatus(muted ? "Mic muted — Crave can still talk" : "Listening…");
         });
     }
-    if (promptBar) {
-        promptBar.addEventListener("click", function (ev) {
-            var btn = ev.target.closest("button[data-prompt]");
-            if (!btn) return;
-            var t = btn.getAttribute("data-prompt");
-            if (t) sendUserText(t);
-        });
+    if (startBtn) {
+        startBtn.addEventListener("click", startCrave);
     }
+
+    // ---- Load recipe ----
 
     if (!sessionId) {
         setWsStatus("Missing ?session= — start from Import.");
@@ -213,9 +265,7 @@
     )
         .then(function (r) {
             return r.json().then(function (j) {
-                if (!r.ok) {
-                    throw new Error(j.detail || r.statusText);
-                }
+                if (!r.ok) throw new Error(j.detail || r.statusText);
                 return j;
             });
         })
@@ -229,7 +279,7 @@
             renderIngredients(recipe.ingredients || []);
             stepIdx = 0;
             renderStep();
-            connectWs();
+            // Don't auto-connect — wait for user to tap "Start Cooking with Crave"
         })
         .catch(function (err) {
             setWsStatus(err.message || String(err));

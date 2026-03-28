@@ -75,5 +75,23 @@ def crave_live_tools() -> list[types.Tool]:
                 "required": ["duration_seconds"],
             },
         ),
+        types.FunctionDeclaration(
+            name="navigate_to_step",
+            description=(
+                "Navigates the cooking UI to a specific recipe step. Use this "
+                "when the user says 'next step', 'go back', 'skip', or similar. "
+                "The UI will update and you should then read the new step aloud."
+            ),
+            parameters_json_schema={
+                "type": "object",
+                "properties": {
+                    "step_number": {
+                        "type": "integer",
+                        "description": "1-based step number to navigate to.",
+                    },
+                },
+                "required": ["step_number"],
+            },
+        ),
     ]
     return [types.Tool(function_declarations=declarations)]

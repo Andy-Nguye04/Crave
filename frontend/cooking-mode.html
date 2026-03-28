@@ -206,55 +206,54 @@
 
         <div class="relative px-4 pb-8 max-w-lg mx-auto w-full flex flex-col items-center">
             
-            <!-- Contextual Agent Prompts -->
-            <div class="w-full mb-6">
-                <div id="crave-prompt-bar" class="flex gap-2 justify-center overflow-x-auto hide-scrollbar px-2">
-                    <button type="button" data-prompt="Set a 5 minute kitchen timer." class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
-                        Set 5 min timer
-                    </button>
-                    <button type="button" data-prompt="What does emulsify mean in simple terms?" class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
-                        What is emulsify?
-                    </button>
-                    <button type="button" data-prompt="What should I focus on for this step?" class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
-                        Coach me on this step
-                    </button>
-                </div>
-            </div>
+            <!-- AI Pill Container -->
+            <div class="w-full bg-[#191c1a] rounded-[2rem] p-4 flex items-center justify-between shadow-2xl ai-glow animate-pulse-glow transition-all duration-300 transform group hover:scale-[1.02]">
 
-            <!-- AI Pill Container (Tracker optimization) -->
-            <div class="w-full bg-[#191c1a] rounded-[2rem] p-4 flex items-center justify-between shadow-2xl ai-glow animate-pulse-glow transition-all duration-300 transform group hover:scale-[1.02] cursor-pointer">
-                
                 <div class="flex items-center gap-4 pl-2 text-white overflow-hidden">
                     <!-- AI Status Icon (Animated Waveform) -->
                     <div class="relative w-8 h-8 flex items-center justify-center text-primary-fixed">
-                        <span class="material-symbols-outlined absolute opacity-0 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">mic</span>
-                        <div class="flex items-center gap-1 group-hover:opacity-0 transition-opacity h-full">
+                        <div class="flex items-center gap-1 h-full">
                             <div class="w-1 h-2 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.1s"></div>
                             <div class="w-1.5 h-6 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.3s"></div>
                             <div class="w-1.5 h-4 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.5s"></div>
                             <div class="w-1 h-3 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.7s"></div>
                         </div>
                     </div>
-                
+
                     <!-- Agent Context Message -->
                     <div class="flex flex-col h-full justify-center min-w-0">
-                        <span class="text-[#b1f0ce] text-[10px] font-bold uppercase tracking-widest block font-headline">Crave Chef AI</span>
+                        <span class="text-[#b1f0ce] text-[10px] font-bold uppercase tracking-widest block font-headline">Crave</span>
                         <p id="crave-chef-status" class="font-medium text-sm truncate opacity-90 inline-flex">
-                            Listening… Hands messy? Just ask.
+                            Tap "Start Cooking" to begin
                         </p>
                         <span id="crave-ws-status" class="text-[10px] text-white/50 truncate max-w-[200px]"></span>
                     </div>
                 </div>
 
-                <!-- Next Button Action inside the pill -->
-                <button id="crave-fast-forward" type="button" class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform">
-                    <span class="material-symbols-outlined" data-icon="fast_forward" style="font-variation-settings: 'FILL' 1;">fast_forward</span>
+                <!-- Mute Toggle -->
+                <button id="crave-mute-toggle" type="button" class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mic</span>
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Start Overlay — user gesture required for mic + audio playback -->
+    <div id="crave-start-overlay" class="fixed inset-0 z-[100] bg-[#0f5238]/95 backdrop-blur-sm flex items-center justify-center">
+        <div class="text-center px-6">
+            <div class="w-28 h-28 rounded-full bg-white/10 mx-auto mb-8 flex items-center justify-center shadow-2xl ring-4 ring-[#b1f0ce]/30">
+                <span class="material-symbols-outlined text-white text-6xl" style="font-variation-settings: 'FILL' 1;">mic</span>
+            </div>
+            <h2 class="font-headline text-3xl font-bold text-white mb-3">Ready to Cook?</h2>
+            <p class="text-white/70 mb-10 max-w-xs mx-auto leading-relaxed">Crave will guide you through each step with voice. Tap to begin.</p>
+            <button id="crave-start-btn" class="bg-white text-[#0f5238] font-bold py-4 px-12 rounded-full text-lg shadow-xl hover:scale-105 active:scale-95 transition-transform">
+                Start Cooking with Crave
+            </button>
+        </div>
+    </div>
+
     <script src="js/api-base.js"></script>
+    <script src="js/crave-audio.js"></script>
     <script src="js/cooking-mode.js"></script>
 </body>
 </html>

@@ -24,7 +24,7 @@ class Settings(BaseSettings):
 
     gemini_api_key: str = ""
     gemini_recipe_model: str = "gemini-2.5-flash"
-    gemini_live_model: str = "gemini-live-2.5-flash-preview"
+    gemini_live_model: str = "gemini-2.5-flash-native-audio-latest"
     crave_cors_origins: str = (
         "http://127.0.0.1:5500,http://localhost:5500,"
         "http://127.0.0.1:8080,http://localhost:8080,"
