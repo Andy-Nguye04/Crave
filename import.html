@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Crave - Import Recipe</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f5238",
+                        "primary-fixed": "#b1f0ce",
+                        "on-surface": "#191c1a",
+                        "on-surface-variant": "#404943",
+                        "background": "#f8faf6",
+                        "surface-container": "#eceeea",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f0",
+                        "surface-container-high": "#e7e9e5",
+                        "outline-variant": "#bfc9c1",
+                        "tiktok": "#000000",
+                        "instagram": "#E1306C",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .botanical-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+
+        .ai-gradient {
+            background: linear-gradient(135deg, #b1f0ce 0%, #95d4b3 100%);
+        }
+
+        .glass-panel {
+            background: rgba(248, 250, 246, 0.85);
+            backdrop-filter: blur(24px);
+        }
+
+        .ig-gradient {
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        }
+
+        .tiktok-gradient {
+            background: linear-gradient(45deg, #00f2fe, #fe0979);
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+            overflow-x: hidden;
+        }
+
+        /* Loading Circle SVG Animation */
+        .circle-loader {
+            fill: transparent;
+            stroke: #b1f0ce;
+            stroke-width: 4;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            animation: fillCircle 3s ease-out forwards;
+        }
+
+        @keyframes fillCircle {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed pb-32">
+
+    <!-- Top Navigation Anchor -->
+    <header
+        class="fixed top-0 w-full z-40 glass-panel px-6 py-4 flex justify-between items-center border-b border-outline-variant/15">
+        <h1 class="font-headline font-black tracking-tighter text-2xl text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+            Import
+        </h1>
+        <button
+            class="bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-colors relative">
+            <span class="material-symbols-outlined">help</span>
+        </button>
+    </header>
+
+    <!-- Main Content Container -->
+    <div id="mainContent" class="transition-opacity duration-500 opacity-100">
+        <main class="pt-28 px-6 max-w-2xl mx-auto w-full">
+
+            <!-- Hero "Smart Paste" Input -->
+            <section class="mb-10 relative">
+                <div class="absolute -top-10 -z-10 w-full flex justify-center">
+                    <div class="w-64 h-64 bg-[#b1f0ce] rounded-full blur-[80px] opacity-40 mix-blend-multiply"></div>
+                </div>
+
+                <div class="text-center mb-6 mt-4">
+                    <h2 class="font-headline text-3xl font-extrabold tracking-tight mb-2">Turn Any Video into a
+                        <br><span class="text-transparent bg-clip-text botanical-gradient">Shoppable Recipe.</span>
+                    </h2>
+                    <p class="text-on-surface-variant text-sm font-medium">Just paste a YouTube link.</p>
+                </div>
+
+                <div
+                    class="bg-surface-container-lowest border-2 border-outline-variant/20 rounded-[2rem] p-3 shadow-xl shadow-primary/5 focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 transition-all">
+                    <div class="relative flex items-center">
+                        <span
+                            class="absolute left-4 material-symbols-outlined text-outline-variant text-[28px]">link</span>
+                        <input type="url" id="recipeUrl" placeholder="https://youtube.com/shorts/..."
+                            class="w-full bg-transparent border-none py-5 pl-14 pr-32 text-on-surface font-medium placeholder-on-surface-variant/40 focus:ring-0 text-sm h-16" />
+
+                        <!-- Paste Button -->
+                        <button
+                            class="absolute right-2 bg-surface-container-high text-on-surface-variant px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-colors"
+                            onclick="document.getElementById('recipeUrl').value='https://youtube.com/shorts/XYZ123'">
+                            Paste
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Extract Action Button -->
+                <button id="extractBtn"
+                    class="w-full mt-4 botanical-gradient text-white rounded-[1.5rem] py-5 font-headline font-extrabold text-[16px] tracking-widest uppercase shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] transition-all">
+                    <span class="material-symbols-outlined text-[22px]"
+                        style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Start Prep
+                </button>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- AI Extraction Loading Overlay (Hidden by Default) -->
+    <div id="loadingOverlay"
+        class="fixed inset-0 z-50 bg-[#0f5238] hidden flex-col items-center justify-center px-6 transition-opacity duration-500 opacity-0">
+
+        <!-- Glowing Core -->
+        <div class="relative flex items-center justify-center w-48 h-48 mb-10 text-[#b1f0ce]">
+            <!-- Spinning rings -->
+            <svg class="absolute w-full h-full animate-spin-slow opacity-20" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-dasharray="10 20" />
+            </svg>
+            <svg class="absolute w-40 h-40 animate-spin-slow"
+                style="animation-direction: reverse; animation-duration: 5s" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" class="circle-loader" />
+            </svg>
+
+            <span class="material-symbols-outlined text-[64px] animate-pulse"
+                style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+            <div class="absolute inset-0 bg-[#b1f0ce]/20 blur-2xl rounded-full animate-ping-slow mix-blend-screen">
+            </div>
+        </div>
+
+        <!-- Dynamic Status Updates -->
+        <div class="h-20 flex flex-col items-center justify-center text-center">
+            <h2 id="loadingTitle" class="text-white font-headline text-2xl font-extrabold tracking-tight mb-2">Parsing
+                Video...</h2>
+            <p id="loadingSubtitle" class="text-[#b1f0ce] text-sm font-medium animate-pulse">Analyzing frames & captions
+            </p>
+        </div>
+
+    </div>
+
+    <!-- BottomNavBar -->
+    <nav id="bottomNav"
+        class="fixed bottom-0 left-0 w-full flex justify-around items-end px-4 pb-6 pt-3 bg-[#f8faf6]/90 backdrop-blur-2xl z-40 shadow-[0_-8px_32px_rgba(0,0,0,0.04)] rounded-t-[24px]">
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="home.html">
+            <span class="material-symbols-outlined">explore</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Discover</span>
+        </a>
+        <!-- Active Import Tab -->
+        <a class="flex flex-col items-center justify-center text-primary p-2 transition-colors relative" href="#">
+            <div class="absolute -top-1 w-8 h-1 bg-primary rounded-full"></div>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Import</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="tracker.html">
+            <span class="material-symbols-outlined">dataset</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Tracker</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="profile.html">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Interactive script for the extraction flow -->
+    <script>
+        document.getElementById('extractBtn').addEventListener('click', function () {
+            // Check if URL is pasted (just visually check by ensuring input isn't empty, or just simulate it)
+            const input = document.getElementById('recipeUrl');
+            if (!input.value) {
+                input.focus();
+                // Simple visual shake or outline color for error
+                input.parentElement.parentElement.classList.add('border-red-500');
+                setTimeout(() => input.parentElement.parentElement.classList.remove('border-red-500'), 500);
+                return;
+            }
+
+            // Hide Main, Show Loader
+            const main = document.getElementById('mainContent');
+            const nav = document.getElementById('bottomNav');
+            const loader = document.getElementById('loadingOverlay');
+
+            main.classList.remove('opacity-100');
+            main.classList.add('opacity-0');
+            nav.style.display = 'none';
+
+            setTimeout(() => {
+                main.style.display = 'none';
+                loader.classList.remove('hidden');
+                loader.classList.add('flex');
+
+                // Allow CSS display flex to apply before transitioning opacity
+                requestAnimationFrame(() => {
+                    loader.classList.remove('opacity-0');
+                    loader.classList.add('opacity-100');
+                });
+
+                // Simulate AI stages
+                const title = document.getElementById('loadingTitle');
+                const subtitle = document.getElementById('loadingSubtitle');
+
+                setTimeout(() => {
+                    title.innerText = "Extracting Ingredients...";
+                    subtitle.innerText = "Building your shopping list";
+                }, 1500);
+
+                setTimeout(() => {
+                    title.innerText = "Calibrating Swaps...";
+                    subtitle.innerText = "Applying Gluten-Free & Dairy-Free logic";
+                }, 3000);
+
+                setTimeout(() => {
+                    // Redirect to the success screen
+                    window.location.href = 'extracted-recipe.html';
+                }, 4500);
+
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>
