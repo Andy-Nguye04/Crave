@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Crave - My Culinary Passport</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#2e312f",
+                        "on-tertiary-fixed": "#092016",
+                        "secondary-fixed-dim": "#a0d3aa",
+                        "surface-container": "#eceeea",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e1e3df",
+                        "on-surface": "#191c1a",
+                        "background": "#f8faf6",
+                        "primary-fixed": "#b1f0ce",
+                        "on-surface-variant": "#404943",
+                        "primary": "#0f5238",
+                        "outline-variant": "#bfc9c1",
+                        "secondary": "#396847",
+                        "surface-container-high": "#e7e9e5",
+                        "surface-container-low": "#f2f4f0",
+                        "surface": "#f8faf6",
+                        "secondary-container": "#bbefc4",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ai-gradient {
+            background: linear-gradient(135deg, #b1f0ce 0%, #95d4b3 100%);
+        }
+        .botanical-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed pb-32">
+
+    <!-- Top Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-[#f8faf6]/80 backdrop-blur-2xl px-6 py-4 flex justify-between items-center border-b border-outline-variant/15">
+        <div class="flex items-center gap-4">
+            <button class="text-primary hover:bg-surface-container-high p-2 rounded-full transition-transform active:scale-90">
+                <span class="material-symbols-outlined" data-icon="menu">menu</span>
+            </button>
+            <h1 class="font-headline font-black tracking-tighter text-2xl text-primary">Crave Tracker</h1>
+        </div>
+        <div class="flex items-center gap-2 bg-surface-container-high px-4 py-1.5 rounded-full">
+            <span class="material-symbols-outlined text-sm text-secondary">workspace_premium</span>
+            <span class="font-bold text-xs">Level 4 Chef</span>
+        </div>
+    </header>
+
+    <main class="pt-24 px-6 max-w-3xl mx-auto w-full">
+        <!-- AI Optimization Suggestion Widget (Beli-style upgrade) -->
+        <section class="mb-10 w-full bg-[#0f5238] rounded-3xl p-6 text-white relative overflow-hidden shadow-2xl">
+            <!-- Decorative gradient blur -->
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-[#b1f0ce]/20 blur-3xl rounded-full"></div>
+            
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="w-12 h-12 rounded-full ai-gradient text-[#0f5238] flex items-center justify-center flex-shrink-0 shadow-lg glow">
+                    <span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                </div>
+                <div>
+                    <h2 class="font-headline font-extrabold text-xl tracking-tight mb-1 flex items-center gap-2">
+                        AI Workflow Optimization
+                    </h2>
+                    <p class="text-[#b1f0ce]/90 text-sm font-medium leading-relaxed mb-4">
+                        You've cooked 3 pasta dishes this week and consistently rated them highly. The agent suggests buying fresh basil in bulk for upcoming meals to save 15% on groceries.
+                    </p>
+                    <button class="flex items-center gap-2 bg-white text-[#0f5238] px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md hover:scale-105 transition-transform active:scale-95">
+                        <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                        Add to Auto-Cart
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tracker Header -->
+        <section class="flex justify-between items-end mb-6">
+            <div>
+                <span class="text-primary font-bold tracking-widest uppercase text-[10px] block mb-1">Ranked Mastery</span>
+                <h3 class="font-headline text-3xl font-extrabold tracking-tight">Your Top Recipes</h3>
+            </div>
+            <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg">
+                <button class="px-4 py-1.5 rounded-md bg-surface-container-lowest shadow-sm text-xs font-bold text-on-surface transition-all">Ranked</button>
+                <button class="px-4 py-1.5 rounded-md text-on-surface-variant text-xs font-bold hover:bg-surface-container-high transition-all">Recent</button>
+            </div>
+        </section>
+
+        <!-- Ranked Recipe List (Beli-style list tracking) -->
+        <section class="space-y-4">
+            <!-- Rank 1 Card -->
+            <div class="group relative flex bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-outline-variant/10 cursor-pointer p-4 gap-4 items-center">
+                <!-- Rank Badge -->
+                <div class="w-10 flex flex-col items-center justify-center font-headline">
+                    <span class="text-xl font-black text-primary">#1</span>
+                    <span class="text-[10px] text-on-surface-variant font-bold mt-1">9.8</span>
+                </div>
+                
+                <!-- Image thumbnail -->
+                <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY" 
+                         alt="Pasta" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+                </div>
+
+                <!-- Info -->
+                <div class="flex-grow">
+                    <h4 class="font-headline font-bold text-lg leading-tight mb-1">Wild Basil Pappardelle</h4>
+                    <p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">
+                        <span class="material-symbols-outlined text-[14px]">psychology</span> AI Tweaked: Extra garlic
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rank 2 Card -->
+            <div class="group relative flex bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-outline-variant/10 cursor-pointer p-4 gap-4 items-center">
+                <div class="w-10 flex flex-col items-center justify-center font-headline">
+                    <span class="text-xl font-black text-on-surface-variant">#2</span>
+                    <span class="text-[10px] text-on-surface-variant font-bold mt-1">9.4</span>
+                </div>
+                
+                <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeAHcBpcyw9uOOsNX56oVFPKhmC-Kp6scitw92v0NU3XVr8ITgvC9TbUhbBfq70nBxrXoXaiMgggA8NuOUdErvKgBDkILjul9PakNKAku7lNCpLbO9NILAJsX_VHtsDbSTBjCVjXJVoVLLN-Kk0S2t4J7PPToj7up150B4QqwG0UxtdAAetMvGcP0NK6XRUTTxUBeBZDDMCiWWm8hUisqVqff-trsYPdVgny5RZ2ekAJReiGeJoxRLFzOJhRa5vHcixBB3muJHFms" 
+                         alt="Salad Bowl" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+                </div>
+
+                <div class="flex-grow">
+                    <h4 class="font-headline font-bold text-lg leading-tight mb-1">Mediterranean Salmon Bowl</h4>
+                    <p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">
+                        <span class="material-symbols-outlined text-[14px]">psychology</span> AI Tweaked: Quinoa sub
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Rank 3 Card -->
+            <div class="group relative flex bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-outline-variant/10 cursor-pointer p-4 gap-4 items-center">
+                <div class="w-10 flex flex-col items-center justify-center font-headline">
+                    <span class="text-xl font-black text-on-surface-variant">#3</span>
+                    <span class="text-[10px] text-on-surface-variant font-bold mt-1">8.9</span>
+                </div>
+                
+                <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLB88bZgyuESLtnKOHnrKSbLW6EeT_vZJVl_58HKH0NWOI1e1usjHLLm4roQ3cZ_3gC9ug50z00lubR7Ml8c32olWoNwc-rP9NTWPPFdRKun9jI8rxR9LtodinVQSeylNqI9O2bMZUdUeQEKT_itB_Eafw68XwA7m4JMsyjUzKlxzC59pE5Lb22B_wNjSFrX4CkUcnW-afqH803pP261vItAniPh0uZ56PucLB4zoFdrrljt09rNxloPz7JTWBY0I-JHCviFG4zbk" 
+                         alt="Pizza" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+                </div>
+
+                <div class="flex-grow">
+                    <h4 class="font-headline font-bold text-lg leading-tight mb-1">Stone-Fired Pizza (TikTok)</h4>
+                    <p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">
+                        <span class="material-symbols-outlined text-[14px]">thumb_up</span> You loved the crunch
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Action FAB -->
+        <button class="fixed right-6 bottom-28 w-14 h-14 botanical-gradient rounded-full text-white shadow-xl shadow-primary/30 flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+            <span class="material-symbols-outlined" data-icon="add">add</span>
+        </button>
+
+    </main>
+
+    <!-- BottomNavBar (Matches Beli/Tracker App patterns) -->
+    <nav class="fixed bottom-0 left-0 w-full flex justify-around items-end px-4 pb-6 pt-3 bg-[#f8faf6]/90 backdrop-blur-2xl z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.04)] rounded-t-[24px]">
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="#">
+            <span class="material-symbols-outlined">explore</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Discover</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="#">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Import</span>
+        </a>
+        <!-- Active Tracker Tab -->
+        <a class="flex flex-col items-center justify-center text-primary p-2 transition-colors relative" href="#">
+            <!-- Beli styled active indicator -->
+            <div class="absolute -top-1 w-8 h-1 bg-primary rounded-full"></div>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dataset</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Tracker</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="#">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Profile</span>
+        </a>
+    </nav>
+
+</body>
+</html>
