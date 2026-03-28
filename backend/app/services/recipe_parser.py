@@ -23,6 +23,7 @@ from google.genai import types
 from app.config import get_settings
 from app.logging_utils import log_genai_event, trace_calls
 from app.schemas.recipe import RecipeModel
+from app.schemas.profile import UserProfile
 from app.services.genai_client import get_genai_client
 
 _YOUTUBE_ID_RE = re.compile(r"(?:v=|youtu\.be/|shorts/)([a-zA-Z0-9_-]{6,})")
@@ -115,11 +116,13 @@ def get_sample_recipe() -> RecipeModel:
     return RecipeModel.model_validate(SAMPLE_RECIPE_DICT)
 
 
-def _parse_prompt(source_label: str, source_body: str) -> str:
+def _parse_prompt(source_label: str, source_body: str, user_context: str = "") -> str:
     """Build the instruction text sent with video or transcript content."""
 
-    return f"""You are Crave's recipe extraction engine. {source_label}.
+    context_block = f"\nUser Dietary Profile:\n{user_context}\n" if user_context else ""
 
+    return f"""You are Crave's recipe extraction engine. {source_label}.
+{context_block}
 Extract a complete recipe as JSON matching this structure:
 - recipe_name: string
 - source_url: string (use the URL provided in the user message if applicable)
@@ -140,7 +143,7 @@ Source content follows:
 
 
 @trace_calls
-def parse_youtube_to_recipe(youtube_url: str, *, dry_run: bool = False) -> RecipeModel:
+def parse_youtube_to_recipe(youtube_url: str, *, profile: UserProfile | None = None, dry_run: bool = False) -> RecipeModel:
     """
     Parse a YouTube URL into a ``RecipeModel`` using Gemini with JSON schema.
 
@@ -170,11 +173,29 @@ def parse_youtube_to_recipe(youtube_url: str, *, dry_run: bool = False) -> Recip
     client = get_genai_client()
     schema = RecipeModel.model_json_schema()
 
+    user_context = ""
+    if profile:
+        prefs = profile.dietary_preferences
+        flags = []
+        if getattr(prefs, "vegan", False): flags.append("Vegan")
+        if getattr(prefs, "gluten_free", False): flags.append("Gluten-Free")
+        if getattr(prefs, "dairy_free", False): flags.append("Dairy-Free")
+        if getattr(prefs, "nut_free", False): flags.append("Nut-Free")
+        allergies = getattr(profile, "other_allergies", [])
+        if flags or allergies:
+            user_context = "The user has the following dietary restrictions:\n"
+            if flags:
+                user_context += f"- Preferences: {', '.join(flags)}\n"
+            if allergies:
+                user_context += f"- Allergies: {', '.join(allergies)}\n"
+            user_context += "\nYou MUST flag any ingredient conflicting with these as `dietary_conflict=true` and provide a safe `suggested_substitute` tailored to these restrictions."
+
     video_parts = [
         types.Part(
             text=_parse_prompt(
                 "The user attached a YouTube video by URL.",
                 f"YouTube URL: {youtube_url}",
+                user_context=user_context,
             ),
         ),
         types.Part(
@@ -231,6 +252,7 @@ def parse_youtube_to_recipe(youtube_url: str, *, dry_run: bool = False) -> Recip
         prompt = _parse_prompt(
             "The video could not be read directly; use this transcript.",
             f"URL: {youtube_url}\n\nTranscript:\n{transcript}",
+            user_context=user_context,
         )
         log_genai_event(
             "parse_youtube_transcript_attempt",
