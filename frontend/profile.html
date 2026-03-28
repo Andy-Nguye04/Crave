@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Profile - Crave</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Profile - Crave</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -71,169 +77,212 @@
             },
         }
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .botanical-gradient {
             background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
         }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
 </head>
-<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed-variant">
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 bg-[#f8faf6]/70 dark:bg-[#191c1a]/70 backdrop-blur-3xl flex justify-between items-center px-6 py-4 w-full">
-<button class="text-[#0f5238] dark:text-[#b1f0ce] scale-95 active:scale-90 transition-transform hover:opacity-80 transition-opacity">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-<h1 class="font-headline font-bold tracking-tight text-2xl font-extrabold text-[#0f5238] dark:text-[#b1f0ce]">Crave</h1>
-<div class="w-10 h-10 rounded-full overflow-hidden scale-95 active:scale-90 transition-transform hover:opacity-80 transition-opacity ring-2 ring-primary-fixed">
-<img id="header-avatar" alt="User Profile" class="w-full h-full object-cover" src=""/>
-</div>
-</header>
-<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto min-h-screen">
-<!-- Profile Header Section -->
-<section class="flex flex-col items-center text-center mb-12">
-<div class="relative mb-6">
-<div class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-surface-container-high p-1 bg-surface-container-low">
-<img id="user-avatar" alt="User Profile" class="w-full h-full object-cover rounded-full" src=""/>
-</div>
-<button class="absolute bottom-1 right-1 botanical-gradient text-white p-2 rounded-full shadow-lg border-4 border-background hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
-</button>
-</div>
-<h2 id="user-name" class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-1"></h2>
-</section>
-<!-- Dietary Restrictions Section -->
-<section class="bg-surface-container-low rounded-[2rem] p-8 mb-8">
-<div class="flex items-center gap-3 mb-8">
-<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
-<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
-</div>
-<div>
-<h3 class="font-headline text-xl font-bold text-on-surface">Dietary Restrictions</h3>
-<p class="text-on-surface-variant text-sm">Personalize your recipe curation</p>
-</div>
-</div>
-<!-- Restriction Grid -->
-<div class="grid grid-cols-1 gap-4">
-<!-- Vegan Toggle -->
-<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined" data-icon="eco">eco</span>
-</div>
-<span class="font-headline font-semibold text-on-surface">Vegan</span>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input id="toggle-vegan" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-</label>
-</div>
-<!-- Gluten-Free Toggle -->
-<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined" data-icon="grain">grain</span>
-</div>
-<span class="font-headline font-semibold text-on-surface">Gluten-Free</span>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input id="toggle-gluten" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-</label>
-</div>
-<!-- Nut-Free Toggle -->
-<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined" data-icon="block">block</span>
-</div>
-<span class="font-headline font-semibold text-on-surface">Nut-Free</span>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input id="toggle-nut" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-</label>
-</div>
-<!-- Dairy-Free Toggle -->
-<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined" data-icon="opacity">opacity</span>
-</div>
-<span class="font-headline font-semibold text-on-surface">Dairy-Free</span>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input id="toggle-dairy" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-</label>
-</div>
-</div>
-<!-- Custom Allergy Input -->
-<div class="mt-8">
-<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-4 px-1">Other Allergies</p>
-<div class="relative group">
-<input id="allergy-input" class="w-full bg-surface-container-high border-none rounded-full py-4 pl-6 pr-12 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary-fixed transition-all scale-100 focus:scale-[1.02]" placeholder="Add custom allergy..." type="text"/>
-<button id="add-allergy-btn" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 botanical-gradient rounded-full text-white flex items-center justify-center shadow-md">
-<span class="material-symbols-outlined" data-icon="add">add</span>
-</button>
-<div id="allergies-container" class="mt-4 flex flex-wrap gap-2"></div>
-</div>
-</div>
-</section>
-<!-- Preferences & Settings -->
-<section class="space-y-4">
-<h3 class="font-headline text-sm font-bold text-on-surface-variant uppercase tracking-widest px-1">Account Settings</h3>
-<div class="bg-surface-container-low rounded-3xl overflow-hidden">
-<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors" onclick="window.location.href='notifications.html'">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-primary" data-icon="notifications_active">notifications_active</span>
-<span class="font-headline font-medium">Notification Preferences</span>
-</div>
-<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
-</button>
-<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors" onclick="window.location.href='privacy.html'">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
-<span class="font-headline font-medium">Privacy &amp; Security</span>
-</div>
-<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
-</button>
-<button id="logout-btn" class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-error" data-icon="logout">logout</span>
-<span class="font-headline font-medium text-error">Sign Out</span>
-</div>
-</button>
-</div>
-</section>
-</main>
-<!-- BottomNavBar -->
-<nav class="fixed bottom-0 left-0 w-full flex justify-around items-end px-4 pb-6 pt-3 bg-[#f8faf6]/90 backdrop-blur-2xl z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.04)] rounded-t-[24px]">
-    <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="home.html">
-        <span class="material-symbols-outlined">explore</span>
-        <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Discover</span>
-    </a>
-    <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="#">
-        <span class="material-symbols-outlined">add_circle</span>
-        <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Import</span>
-    </a>
-    <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="tracker.html">
-        <span class="material-symbols-outlined">dataset</span>
-        <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Tracker</span>
-    </a>
-    <!-- Active Profile Tab -->
-    <a class="flex flex-col items-center justify-center text-primary p-2 transition-colors relative" href="profile.html">
-        <div class="absolute -top-1 w-8 h-1 bg-primary rounded-full"></div>
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
-        <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Profile</span>
-    </a>
-</nav>
-<script src="js/profile.js"></script>
-</body></html>
+
+<body
+    class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed-variant">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full z-50 bg-[#f8faf6]/70 dark:bg-[#191c1a]/70 backdrop-blur-3xl flex justify-between items-center px-6 py-4 w-full">
+        <button
+            class="text-[#0f5238] dark:text-[#b1f0ce] scale-95 active:scale-90 transition-transform hover:opacity-80 transition-opacity">
+            <span class="material-symbols-outlined" data-icon="menu">menu</span>
+        </button>
+        <h1 class="font-headline font-bold tracking-tight text-2xl font-extrabold text-[#0f5238] dark:text-[#b1f0ce]">
+            Crave</h1>
+        <div
+            class="w-10 h-10 rounded-full overflow-hidden scale-95 active:scale-90 transition-transform hover:opacity-80 transition-opacity ring-2 ring-primary-fixed">
+            <img id="header-avatar" alt="User Profile" class="w-full h-full object-cover" src="" />
+        </div>
+    </header>
+    <main class="pt-24 pb-32 px-6 max-w-2xl mx-auto min-h-screen">
+        <!-- Profile Header Section -->
+        <section class="flex flex-col items-center text-center mb-12">
+            <div class="relative mb-6">
+                <div
+                    class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-surface-container-high p-1 bg-surface-container-low">
+                    <img id="user-avatar" alt="User Profile" class="w-full h-full object-cover rounded-full" src="" />
+                </div>
+                <button
+                    class="absolute bottom-1 right-1 botanical-gradient text-white p-2 rounded-full shadow-lg border-4 border-background hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                </button>
+            </div>
+            <h2 id="user-name" class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-1"></h2>
+        </section>
+        <!-- Dietary Restrictions Section -->
+        <section class="bg-surface-container-low rounded-[2rem] p-8 mb-8">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+                </div>
+                <div>
+                    <h3 class="font-headline text-xl font-bold text-on-surface">Dietary Restrictions</h3>
+                    <p class="text-on-surface-variant text-sm">Personalize your recipe curation</p>
+                </div>
+            </div>
+            <!-- Restriction Grid -->
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Vegan Toggle -->
+                <div
+                    class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined" data-icon="eco">eco</span>
+                        </div>
+                        <span class="font-headline font-semibold text-on-surface">Vegan</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="toggle-vegan" class="sr-only peer" type="checkbox" value="" />
+                        <div
+                            class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                        </div>
+                    </label>
+                </div>
+                <!-- Gluten-Free Toggle -->
+                <div
+                    class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined" data-icon="grain">grain</span>
+                        </div>
+                        <span class="font-headline font-semibold text-on-surface">Gluten-Free</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="toggle-gluten" class="sr-only peer" type="checkbox" value="" />
+                        <div
+                            class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                        </div>
+                    </label>
+                </div>
+                <!-- Nut-Free Toggle -->
+                <div
+                    class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined" data-icon="block">block</span>
+                        </div>
+                        <span class="font-headline font-semibold text-on-surface">Nut-Free</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="toggle-nut" class="sr-only peer" type="checkbox" value="" />
+                        <div
+                            class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                        </div>
+                    </label>
+                </div>
+                <!-- Dairy-Free Toggle -->
+                <div
+                    class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl group hover:bg-white transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined" data-icon="opacity">opacity</span>
+                        </div>
+                        <span class="font-headline font-semibold text-on-surface">Dairy-Free</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="toggle-dairy" class="sr-only peer" type="checkbox" value="" />
+                        <div
+                            class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <!-- Custom Allergy Input -->
+            <div class="mt-8">
+                <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-4 px-1">Other Allergies
+                </p>
+                <div class="relative group">
+                    <input id="allergy-input"
+                        class="w-full bg-surface-container-high border-none rounded-full py-4 pl-6 pr-12 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary-fixed transition-all scale-100 focus:scale-[1.02]"
+                        placeholder="Add custom allergy..." type="text" />
+                    <button id="add-allergy-btn"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 botanical-gradient rounded-full text-white flex items-center justify-center shadow-md">
+                        <span class="material-symbols-outlined" data-icon="add">add</span>
+                    </button>
+                    <div id="allergies-container" class="mt-4 flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Preferences & Settings -->
+        <section class="space-y-4">
+            <h3 class="font-headline text-sm font-bold text-on-surface-variant uppercase tracking-widest px-1">Account
+                Settings</h3>
+            <div class="bg-surface-container-low rounded-3xl overflow-hidden">
+                <button
+                    class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors"
+                    onclick="window.location.href='notifications.html'">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary"
+                            data-icon="notifications_active">notifications_active</span>
+                        <span class="font-headline font-medium">Notification Preferences</span>
+                    </div>
+                    <span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+                </button>
+                <button
+                    class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors"
+                    onclick="window.location.href='privacy.html'">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+                        <span class="font-headline font-medium">Privacy &amp; Security</span>
+                    </div>
+                    <span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+                </button>
+                <button id="logout-btn"
+                    class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-error" data-icon="logout">logout</span>
+                        <span class="font-headline font-medium text-error">Sign Out</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+        class="fixed bottom-0 left-0 w-full flex justify-around items-end px-4 pb-6 pt-3 bg-[#f8faf6]/90 backdrop-blur-2xl z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.04)] rounded-t-[24px]">
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="home.html">
+            <span class="material-symbols-outlined">explore</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Discover</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="import.html">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Import</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="tracker.html">
+            <span class="material-symbols-outlined">dataset</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Tracker</span>
+        </a>
+        <!-- Active Profile Tab -->
+        <a class="flex flex-col items-center justify-center text-primary p-2 transition-colors relative"
+            href="profile.html">
+            <div class="absolute -top-1 w-8 h-1 bg-primary rounded-full"></div>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Profile</span>
+        </a>
+    </nav>
+    <script src="js/profile.js"></script>
+</body>
+
+</html>

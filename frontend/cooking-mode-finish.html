@@ -61,7 +61,7 @@
         </button>
         <div class="text-center">
              <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant block leading-none mb-1">Recipe Complete</span>
-             <h1 class="font-headline font-bold tracking-tight text-xl text-on-surface leading-none">Step 8 of 8</h1>
+             <h1 id="finish-step-summary" class="font-headline font-bold tracking-tight text-xl text-on-surface leading-none">…</h1>
         </div>
         <div class="w-10"></div> <!-- Spacer -->
     </header>
@@ -77,8 +77,8 @@
         <h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-3 leading-tight">
             Chef's Kiss!
         </h2>
-        <p class="text-on-surface-variant text-lg leading-relaxed mb-10 max-w-sm">
-            You've successfully mastered the Hand-Pulled Garden Pesto Pappardelle.
+        <p id="finish-recipe-teaser" class="text-on-surface-variant text-lg leading-relaxed mb-10 max-w-sm">
+            Loading…
         </p>
 
         <!-- Plating Suggestion -->
@@ -88,8 +88,8 @@
                 <span class="material-symbols-outlined text-[18px]">camera</span>
                 Plating Suggestion
             </h3>
-            <p class="text-sm font-medium text-on-surface-variant relative z-10">
-                Use tongs to twirl the pasta into a nest in the center of a wide, shallow bowl. Drizzle a tiny bit of high-quality olive oil on top and gently place 2-3 small basil leaves as a garnish. 
+            <p id="finish-plating-text" class="text-sm font-medium text-on-surface-variant relative z-10">
+                …
             </p>
         </div>
 
@@ -124,7 +124,7 @@
 
     <!-- Side Navigation -->
     <div class="fixed top-1/2 -left-6 -translate-y-1/2 z-40 flex flex-col gap-2">
-        <button class="w-12 h-20 bg-surface-container-high rounded-r-2xl shadow-lg border-y border-r border-outline-variant/20 flex flex-col justify-center items-end pr-2 hover:w-14 transition-all" onclick="window.location.href='cooking-mode.html'">
+        <button type="button" id="finish-back-cooking" class="w-12 h-20 bg-surface-container-high rounded-r-2xl shadow-lg border-y border-r border-outline-variant/20 flex flex-col justify-center items-end pr-2 hover:w-14 transition-all" title="Back to cooking">
              <span class="material-symbols-outlined text-on-surface-variant">navigate_before</span>
         </button>
     </div>
@@ -139,6 +139,8 @@
         </div>
     </div>
 
+    <script src="js/api-base.js"></script>
+    <script src="js/cooking-mode-finish.js"></script>
     <script>
         function triggerConfetti() {
             var duration = 3 * 1000;

@@ -2,6 +2,7 @@
 .env
 backend/.env
 *.pem
+.run*
 
 # Python
 backend/.venv/

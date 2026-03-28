@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Crave - Extracted Recipe</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f5238",
+                        "primary-fixed": "#b1f0ce",
+                        "on-surface": "#191c1a",
+                        "on-surface-variant": "#404943",
+                        "background": "#f8faf6",
+                        "surface-container": "#eceeea",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f0",
+                        "surface-container-high": "#e7e9e5",
+                        "outline-variant": "#bfc9c1",
+                        "success": "#2d6a4f",
+                        "warning": "#d97706",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 0 0 rgba(177, 240, 206, 0.4)' },
+                            '50%': { boxShadow: '0 0 0 15px rgba(177, 240, 206, 0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .botanical-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+
+        .ai-gradient {
+            background: linear-gradient(135deg, #b1f0ce 0%, #95d4b3 100%);
+        }
+
+        .glass-panel {
+            background: rgba(248, 250, 246, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed pb-32">
+
+    <!-- Top Navigation Anchor (Transparent overlaying hero image) -->
+    <header class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center transition-all">
+        <button class="bg-black/40 backdrop-blur-md text-white p-2 rounded-full hover:bg-black/60 transition-colors"
+            onclick="window.history.back()">
+            <span class="material-symbols-outlined font-bold text-xl" data-icon="arrow_back">arrow_back</span>
+        </button>
+        <div
+            class="bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1 text-white border border-white/20">
+            <span class="material-symbols-outlined text-[14px]"
+                style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Extracted</span>
+        </div>
+        <button
+            class="bg-black/40 backdrop-blur-md px-4 py-1.5 text-white flex items-center gap-2 rounded-full hover:bg-black/60 transition-colors border border-transparent hover:border-white/20">
+            <span class="material-symbols-outlined font-bold text-[18px]" data-icon="bookmark">bookmark_border</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Save</span>
+        </button>
+    </header>
+
+    <main class="w-full max-w-2xl mx-auto">
+
+        <!-- Hero Image -->
+        <div class="relative w-full h-[40vh] md:h-[50vh] overflow-hidden rounded-b-[2.5rem] shadow-lg">
+            <img id="extracted-hero-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY"
+                alt="Recipe" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+            <!-- Origin Overlay -->
+            <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div>
+                    <h1 id="extracted-hero-title"
+                        class="text-white font-headline text-3xl font-black mb-1 leading-tight tracking-tight shadow-sm">
+                        Loading…</h1>
+                    <div id="extracted-hero-meta" class="flex flex-wrap items-center gap-2 mt-2">
+                    </div>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Chef&background=random"
+                    class="w-10 h-10 rounded-full border-2 border-white/50 shadow-md" alt="Creator">
+            </div>
+        </div>
+
+        <div class="px-6 mt-8 space-y-8">
+
+            <!-- AI Dietary Accommodations -->
+            <section class="bg-[#0f5238] rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#b1f0ce]/20 blur-3xl rounded-full"></div>
+                <h3 class="font-headline text-lg font-extrabold flex items-center gap-2 mb-3">
+                    <span class="material-symbols-outlined text-[#b1f0ce]"
+                        style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+                    Dietary Check
+                </h3>
+                <p id="extracted-dietary-blurb" class="text-sm text-white/90 leading-relaxed mb-4">
+                    Loading dietary summary…
+                </p>
+                <div id="extracted-swaps" class="space-y-2">
+                </div>
+            </section>
+
+            <!-- Ingredients List -->
+            <section>
+                <div class="flex justify-between items-end mb-4 px-1">
+                    <h2 class="font-headline text-xl font-extrabold tracking-tight">Ingredients</h2>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Serves 2</span>
+                </div>
+
+                <div id="extracted-ingredients-container"
+                    class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/20 shadow-sm space-y-4">
+                </div>
+                <p id="extracted-error" class="hidden text-sm text-red-600 font-medium mt-3 px-1" role="alert"></p>
+            </section>
+
+            <!-- Pantry / Allergy Alternatives (Active Suggestions) -->
+            <section id="extracted-alternatives-section">
+                <h3 class="font-headline text-lg font-bold mb-4 px-1 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-warning"
+                        style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                    Smart alternatives
+                </h3>
+
+                <div
+                    class="bg-surface-container-low rounded-[2rem] p-5 shadow-sm border border-outline-variant/10 space-y-4">
+                    <div class="flex gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-surface-container-high flex-shrink-0 flex items-center justify-center text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[20px]">tips_and_updates</span>
+                        </div>
+                        <div id="extracted-alternatives-body" class="min-w-0">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Bottom Action Ribbon -->
+    <div
+        class="fixed bottom-0 left-0 w-full z-50 glass-panel border-t border-outline-variant/10 py-5 px-6 shadow-[0_-8px_32px_rgba(0,0,0,0.06)]">
+        <div class="max-w-2xl mx-auto flex gap-4">
+            <button type="button" id="extracted-start-cooking"
+                class="flex-1 py-4 botanical-gradient text-white rounded-2xl font-headline font-extrabold text-[15px] tracking-widest uppercase shadow-xl shadow-primary/30 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform animate-pulse-glow disabled:opacity-50 disabled:pointer-events-none">
+                <span class="material-symbols-outlined">soup_kitchen</span>
+                Start cooking
+            </button>
+        </div>
+    </div>
+
+    <script src="js/api-base.js"></script>
+    <script src="js/extracted-recipe.js"></script>
+</body>
+
+</html>
