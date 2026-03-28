@@ -2,17 +2,16 @@
 Auth JSON schemas for login and registration.
 """
 
-from __future__ import annotations
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 class UserRegisterRequest(BaseModel):
     """Payload for creating a new user."""
-    email: EmailStr
+    email: str
     password: str
 
 class UserLoginRequest(BaseModel):
     """Payload for logging in."""
-    email: EmailStr
+    email: str
     password: str
 
 class AuthResponse(BaseModel):
