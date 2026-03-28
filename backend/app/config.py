@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -24,7 +25,14 @@ class Settings(BaseSettings):
 
     gemini_api_key: str = ""
     gemini_recipe_model: str = "gemini-2.5-flash"
-    gemini_live_model: str = "gemini-live-2.5-flash-preview"
+    # Use CRAVE_GEMINI_LIVE_MODEL (not GEMINI_LIVE_MODEL): a stale GEMINI_LIVE_MODEL
+    # in the OS/shell environment overrides .env and defaults and broke Live with
+    # deprecated ids like gemini-live-2.5-flash-preview.
+    # Default: Gemini 3.1 Flash Live (see cooking_ws: AUDIO + output transcription;
+    # TEXT-only response_modalities are rejected for native Live models).
+    crave_gemini_live_model: str = Field(
+        default="gemini-3.1-flash-live-preview",
+    )
     crave_cors_origins: str = (
         "http://127.0.0.1:5500,http://localhost:5500,"
         "http://127.0.0.1:8080,http://localhost:8080,"

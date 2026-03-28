@@ -1,7 +1,7 @@
 """
 Gemini Live ``Tool`` definitions for Crave function calling.
 
-Declares the three hackathon functions with JSON Schema parameters so the
+Declares the hackathon Live functions with JSON Schema parameters so the
 Live session ``connect`` config can register them. Kept separate from runtime
 handlers to keep ``cooking_tools`` free of SDK types.
 
@@ -73,6 +73,30 @@ def crave_live_tools() -> list[types.Tool]:
                     },
                 },
                 "required": ["duration_seconds"],
+            },
+        ),
+        types.FunctionDeclaration(
+            name="navigate_recipe_step",
+            description=(
+                "Advances or goes back one step in the cooking UI. Call when the "
+                "user wants the next or previous on-screen step, including implied "
+                "forward intent (e.g. 'okay what's next', 'I'm done with this', "
+                "'let's continue'). Use 'previous' for go back or the prior step; "
+                "if they only want the current step re-read aloud, use "
+                "get_step_details instead—do not use previous for that."
+            ),
+            parameters_json_schema={
+                "type": "object",
+                "properties": {
+                    "direction": {
+                        "type": "string",
+                        "enum": ["next", "previous"],
+                        "description": (
+                            "'next' to advance one step; 'previous' to go back one step."
+                        ),
+                    },
+                },
+                "required": ["direction"],
             },
         ),
     ]
