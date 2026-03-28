@@ -1,0 +1,1 @@
+"""Crave FastAPI application package."""
