@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Crave — Import recipe</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0f5238",
+                        background: "#f8faf6",
+                        "on-surface": "#191c1a",
+                        secondary: "#396847",
+                        error: "#ba1a1a",
+                    },
+                    fontFamily: {
+                        headline: ["Plus Jakarta Sans", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen flex flex-col">
+    <header class="px-6 py-5 border-b border-black/5">
+        <a href="tracker.html" class="text-sm text-secondary font-medium hover:underline">← Back</a>
+        <h1 class="font-headline font-extrabold text-2xl text-primary mt-2">Import from YouTube</h1>
+        <p class="text-sm text-on-surface/70 mt-1 max-w-md">Paste a cooking video URL. The API extracts steps and ingredients, then opens cooking mode.</p>
+    </header>
+    <main class="flex-grow px-6 py-8 max-w-lg mx-auto w-full">
+        <form id="import-form" class="space-y-4">
+            <label class="block">
+                <span class="text-xs font-bold uppercase tracking-widest text-primary">YouTube URL</span>
+                <input id="youtube-url" type="url" required placeholder="https://www.youtube.com/watch?v=…"
+                    class="mt-2 w-full rounded-xl border border-black/10 px-4 py-3 text-sm bg-white"/>
+            </label>
+            <label class="flex items-center gap-2 text-sm cursor-pointer">
+                <input id="dry-run" type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary"/>
+                <span>Dry run (demo recipe, no Gemini call — no API key needed)</span>
+            </label>
+            <button type="submit" class="w-full rounded-full bg-primary text-white font-headline font-bold py-3 shadow-lg hover:opacity-95 active:scale-[0.99] transition-all">
+                Parse &amp; cook
+            </button>
+            <p id="import-status" class="text-sm mt-2 text-secondary"></p>
+        </form>
+        <p class="text-xs text-on-surface/50 mt-8 leading-relaxed">
+            Tip: run the API at <code class="bg-black/5 px-1 rounded">http://127.0.0.1:8000</code> or set
+            <code class="bg-black/5 px-1 rounded">localStorage.CRAVE_API_BASE</code> / <code class="bg-black/5 px-1 rounded">?api=</code>.
+        </p>
+    </main>
+    <script src="js/api-base.js"></script>
+    <script src="js/import.js"></script>
+</body>
+</html>
