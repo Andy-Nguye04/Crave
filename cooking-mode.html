@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Crave - Live Cooking Mode</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#2e312f",
+                        "on-tertiary-fixed": "#092016",
+                        "secondary-fixed-dim": "#a0d3aa",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#215031",
+                        "inverse-on-surface": "#eff1ed",
+                        "on-secondary-fixed": "#00210d",
+                        "surface-container": "#eceeea",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#002114",
+                        "surface-variant": "#e1e3df",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1a",
+                        "on-background": "#191c1a",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#c5e0cf",
+                        "on-secondary-container": "#3f6e4c",
+                        "inverse-primary": "#95d4b3",
+                        "on-tertiary-fixed-variant": "#354c40",
+                        "background": "#f8faf6",
+                        "primary-fixed": "#b1f0ce",
+                        "secondary": "#396847",
+                        "secondary-fixed": "#bbefc4",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#404943",
+                        "on-primary": "#ffffff",
+                        "primary": "#0f5238",
+                        "outline-variant": "#bfc9c1",
+                        "primary-container": "#2d6a4f",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#354c40",
+                        "surface-container-high": "#e7e9e5",
+                        "surface-dim": "#d8dbd7",
+                        "surface-container-low": "#f2f4f0",
+                        "surface-tint": "#2c694e",
+                        "on-primary-container": "#a8e7c5",
+                        "surface": "#f8faf6",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "primary-fixed-dim": "#95d4b3",
+                        "secondary-container": "#bbefc4",
+                        "tertiary-container": "#4d6457",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#b3cdbd",
+                        "surface-bright": "#f8faf6",
+                        "outline": "#707973",
+                        "surface-container-highest": "#e1e3df",
+                        "tertiary-fixed": "#cee9d8"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'waveform': 'waveform 1.2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 0 0 rgba(177, 240, 206, 0.4)' },
+                            '50%': { boxShadow: '0 0 0 15px rgba(177, 240, 206, 0)' },
+                        },
+                        waveform: {
+                            '0%, 100%': { height: '8px' },
+                            '50%': { height: '24px' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .botanical-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+        .ai-glow {
+            box-shadow: 0 0 30px rgba(177, 240, 206, 0.6);
+        }
+        .glass-panel {
+            background: rgba(248, 250, 246, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        body {
+            min-height: max(884px, 100dvh);
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar for horizontal lists */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen flex flex-col pt-safe pb-safe">
+
+    <!-- Top Navigation Anchor (Shared Component modified for Cooking Mode) -->
+    <header class="fixed top-0 w-full z-50 glass-panel border-b border-outline-variant/10">
+        <!-- Progress Bar at the very top -->
+        <div class="h-1.5 w-full bg-surface-container-high">
+            <div class="h-full botanical-gradient w-3/8 transition-all duration-500 ease-out rounded-r-full" style="width: 37.5%"></div>
+        </div>
+
+        <div class="flex justify-between items-center px-6 py-4">
+            <div class="flex items-center gap-4">
+                <button class="text-[#0f5238] bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-transform active:scale-90">
+                    <span class="material-symbols-outlined font-bold" data-icon="close">close</span>
+                </button>
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#0f5238] block leading-none mb-1">Hand-Pulled Garden Pesto Pappardelle</span>
+                    <h1 class="font-headline font-bold tracking-tight text-xl text-on-surface leading-none">Step 3 of 8</h1>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button class="text-on-surface-variant hover:text-[#0f5238] p-2 rounded-full transition-colors">
+                    <span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+                </button>
+                <button class="text-on-surface-variant hover:text-[#0f5238] p-2 rounded-full transition-colors relative">
+                    <span class="material-symbols-outlined" data-icon="timer">timer</span>
+                    <!-- Active timer dot indicator -->
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full outline outline-2 outline-white"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-36 px-6 max-w-2xl mx-auto w-full flex flex-col relative">
+
+        <!-- AI Generated Video Instruction -->
+        <section class="mb-8 w-full mt-2">
+            <div class="relative aspect-video w-full rounded-[2rem] overflow-hidden shadow-xl bg-surface-container-highest group">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFJk4iSN1Z8wBSV0ZNVdIwThIBoHOqjO53LxPzS_NoFwtjhVX5hR0QeCNkALAgisOfZ1Fdf8GUmISsgjiSuTx5o4dR9kY6-1-obbYOW17vftV_0X1MpFKPrJI9Siu9-gVjsqwwRrfrmtOBP9b64gEXOO_ttDFHQEXTbXubSY6o-TA1kvNgTqLQ8R4aTqZCnpTJ2Q4bixZ4zTh_zB7jHehWEiDRGc_NaxK_uB-89msT2RwlIZ9wHRF5ZFvBpo720hLMWNL1zb5hbMk" 
+                     alt="AI Demonstrating Food Processor Emulsion" 
+                     class="absolute inset-0 w-full h-full object-cover brightness-[0.80] group-hover:scale-105 transition-transform duration-700" />
+                
+                <!-- AI Badge overlay -->
+                <div class="absolute top-4 left-4 bg-primary/90 text-on-primary backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">AI Demo: Emulsion</span>
+                </div>
+
+                <!-- Video Controls Overlay -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <button class="w-16 h-16 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white shadow-xl hover:scale-110 active:scale-95 transition-all outline outline-2 outline-white/40">
+                        <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Step Details & Ingredients needed -->
+        <section class="flex-grow flex flex-col justify-center mb-8">
+            <h2 class="font-headline text-3xl md:text-4xl font-extrabold tracking-tight text-on-surface mb-6 leading-tight">
+                Create the pesto emulsion block slowly.
+            </h2>
+            
+            <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
+                With the food processor running, very slowly drizzle in the extra virgin olive oil. Doing this slowly forces the oil to emulsify with the basil, ensuring it doesn't separate.
+            </p>
+
+            <!-- Ingredients specifically for this step -->
+            <div class="bg-surface-container-low p-5 rounded-2xl">
+                <h3 class="font-headline text-xs font-bold uppercase tracking-widest text-[#0f5238] mb-4">Required this step</h3>
+                <div class="flex gap-4 overflow-x-auto hide-scrollbar">
+                    <div class="flex-shrink-0 flex items-center gap-3 bg-surface-container-lowest py-2.5 px-4 rounded-full border border-outline-variant/20">
+                        <span class="text-xl">🫒</span>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-sm">Olive Oil</span>
+                            <span class="text-xs text-on-surface-variant">3/4 cup</span>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 flex items-center gap-3 bg-surface-container-lowest py-2.5 px-4 rounded-full border border-outline-variant/20">
+                        <span class="text-xl">🌿</span>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-sm">Basil Mixture</span>
+                            <span class="text-xs text-on-surface-variant">From Step 2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Seamless Navigation Overlay (Tracker style steps) -->
+    <div class="fixed top-1/2 -right-6 -translate-y-1/2 z-40 flex flex-col gap-2">
+        <button class="w-12 h-20 bg-surface-container-high rounded-l-2xl shadow-lg border-y border-l border-outline-variant/20 flex flex-col justify-center items-start pl-2 hover:w-14 transition-all">
+             <span class="material-symbols-outlined text-on-surface-variant">navigate_next</span>
+        </button>
+    </div>
+    <div class="fixed top-1/2 -left-6 -translate-y-1/2 z-40 flex flex-col gap-2">
+        <button class="w-12 h-20 bg-surface-container-high rounded-r-2xl shadow-lg border-y border-r border-outline-variant/20 flex flex-col justify-center items-end pr-2 hover:w-14 transition-all opacity-50">
+             <span class="material-symbols-outlined text-on-surface-variant">navigate_before</span>
+        </button>
+    </div>
+
+    <!-- AI Live Agent (Hands-Free Optimized Interface, unlike standard chatbot) -->
+    <div class="fixed bottom-0 left-0 w-full z-50">
+        <!-- Floating gradient backdrop for depth -->
+        <div class="absolute bottom-0 w-full h-40 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none"></div>
+
+        <div class="relative px-4 pb-8 max-w-lg mx-auto w-full flex flex-col items-center">
+            
+            <!-- Contextual Agent Prompts -->
+            <div class="w-full mb-6">
+                <div class="flex gap-2 justify-center overflow-x-auto hide-scrollbar px-2">
+                    <button class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
+                        "Set 5 min timer"
+                    </button>
+                    <button class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
+                        "What is emulsify?"
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Pill Container (Tracker optimization) -->
+            <div class="w-full bg-[#191c1a] rounded-[2rem] p-4 flex items-center justify-between shadow-2xl ai-glow animate-pulse-glow transition-all duration-300 transform group hover:scale-[1.02] cursor-pointer">
+                
+                <div class="flex items-center gap-4 pl-2 text-white overflow-hidden">
+                    <!-- AI Status Icon (Animated Waveform) -->
+                    <div class="relative w-8 h-8 flex items-center justify-center text-primary-fixed">
+                        <span class="material-symbols-outlined absolute opacity-0 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">mic</span>
+                        <div class="flex items-center gap-1 group-hover:opacity-0 transition-opacity h-full">
+                            <div class="w-1 h-2 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.1s"></div>
+                            <div class="w-1.5 h-6 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.3s"></div>
+                            <div class="w-1.5 h-4 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.5s"></div>
+                            <div class="w-1 h-3 bg-primary-fixed rounded-full animate-waveform" style="animation-delay: 0.7s"></div>
+                        </div>
+                    </div>
+                
+                    <!-- Agent Context Message -->
+                    <div class="flex flex-col h-full justify-center min-w-0">
+                        <span class="text-[#b1f0ce] text-[10px] font-bold uppercase tracking-widest block font-headline">Crave Chef AI</span>
+                        <p class="font-medium text-sm truncate opacity-90 inline-flex">
+                            Listening... Hands messy? Just ask.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Next Button Action inside the pill -->
+                <button class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform">
+                    <span class="material-symbols-outlined" data-icon="fast_forward" style="font-variation-settings: 'FILL' 1;">fast_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
