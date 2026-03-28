@@ -1,29 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Crave — Import recipe</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#0f5238",
-                        background: "#f8faf6",
-                        "on-surface": "#191c1a",
-                        secondary: "#396847",
-                        error: "#ba1a1a",
-                    },
-                    fontFamily: {
-                        headline: ["Plus Jakarta Sans", "sans-serif"],
-                        body: ["Inter", "sans-serif"],
-                    },
-=======
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -68,45 +44,10 @@
                             '50%': { transform: 'translateY(-10px)' },
                         }
                     }
->>>>>>> origin/main
                 },
             },
         }
     </script>
-<<<<<<< HEAD
-</head>
-<body class="bg-background text-on-surface font-body min-h-screen flex flex-col">
-    <header class="px-6 py-5 border-b border-black/5">
-        <a href="tracker.html" class="text-sm text-secondary font-medium hover:underline">← Back</a>
-        <h1 class="font-headline font-extrabold text-2xl text-primary mt-2">Import from YouTube</h1>
-        <p class="text-sm text-on-surface/70 mt-1 max-w-md">Paste a cooking video URL. The API extracts steps and ingredients, then opens cooking mode.</p>
-    </header>
-    <main class="flex-grow px-6 py-8 max-w-lg mx-auto w-full">
-        <form id="import-form" class="space-y-4">
-            <label class="block">
-                <span class="text-xs font-bold uppercase tracking-widest text-primary">YouTube URL</span>
-                <input id="youtube-url" type="url" required placeholder="https://www.youtube.com/watch?v=…"
-                    class="mt-2 w-full rounded-xl border border-black/10 px-4 py-3 text-sm bg-white"/>
-            </label>
-            <label class="flex items-center gap-2 text-sm cursor-pointer">
-                <input id="dry-run" type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary"/>
-                <span>Dry run (demo recipe, no Gemini call — no API key needed)</span>
-            </label>
-            <button type="submit" class="w-full rounded-full bg-primary text-white font-headline font-bold py-3 shadow-lg hover:opacity-95 active:scale-[0.99] transition-all">
-                Parse &amp; cook
-            </button>
-            <p id="import-status" class="text-sm mt-2 text-secondary"></p>
-        </form>
-        <p class="text-xs text-on-surface/50 mt-8 leading-relaxed">
-            Tip: run the API at <code class="bg-black/5 px-1 rounded">http://127.0.0.1:8000</code> or set
-            <code class="bg-black/5 px-1 rounded">localStorage.CRAVE_API_BASE</code> / <code class="bg-black/5 px-1 rounded">?api=</code>.
-        </p>
-    </main>
-    <script src="js/api-base.js"></script>
-    <script src="js/import.js"></script>
-</body>
-</html>
-=======
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -197,21 +138,25 @@
                             class="w-full bg-transparent border-none py-5 pl-14 pr-32 text-on-surface font-medium placeholder-on-surface-variant/40 focus:ring-0 text-sm h-16" />
 
                         <!-- Paste Button -->
-                        <button
-                            class="absolute right-2 bg-surface-container-high text-on-surface-variant px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-colors"
-                            onclick="document.getElementById('recipeUrl').value='https://youtube.com/shorts/XYZ123'">
+                        <button type="button" id="pasteUrlBtn"
+                            class="absolute right-2 bg-surface-container-high text-on-surface-variant px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-colors">
                             Paste
                         </button>
                     </div>
                 </div>
 
                 <!-- Extract Action Button -->
-                <button id="extractBtn"
+                <button type="button" id="extractBtn"
                     class="w-full mt-4 botanical-gradient text-white rounded-[1.5rem] py-5 font-headline font-extrabold text-[16px] tracking-widest uppercase shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] transition-all">
                     <span class="material-symbols-outlined text-[22px]"
                         style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
                     Start Prep
                 </button>
+                <label class="flex items-center justify-center gap-2 text-xs text-on-surface-variant mt-4 cursor-pointer">
+                    <input id="dry-run" type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary" />
+                    <span>Dry run (demo recipe, no Gemini — no API key)</span>
+                </label>
+                <p id="import-status" class="text-sm mt-3 text-center min-h-[1.25rem]" aria-live="polite"></p>
             </section>
 
         </main>
@@ -266,7 +211,7 @@
         <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
             href="tracker.html">
             <span class="material-symbols-outlined">dataset</span>
-            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Tracker</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Cookbook</span>
         </a>
         <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
             href="profile.html">
@@ -275,62 +220,7 @@
         </a>
     </nav>
 
-    <!-- Interactive script for the extraction flow -->
-    <script>
-        document.getElementById('extractBtn').addEventListener('click', function () {
-            // Check if URL is pasted (just visually check by ensuring input isn't empty, or just simulate it)
-            const input = document.getElementById('recipeUrl');
-            if (!input.value) {
-                input.focus();
-                // Simple visual shake or outline color for error
-                input.parentElement.parentElement.classList.add('border-red-500');
-                setTimeout(() => input.parentElement.parentElement.classList.remove('border-red-500'), 500);
-                return;
-            }
-
-            // Hide Main, Show Loader
-            const main = document.getElementById('mainContent');
-            const nav = document.getElementById('bottomNav');
-            const loader = document.getElementById('loadingOverlay');
-
-            main.classList.remove('opacity-100');
-            main.classList.add('opacity-0');
-            nav.style.display = 'none';
-
-            setTimeout(() => {
-                main.style.display = 'none';
-                loader.classList.remove('hidden');
-                loader.classList.add('flex');
-
-                // Allow CSS display flex to apply before transitioning opacity
-                requestAnimationFrame(() => {
-                    loader.classList.remove('opacity-0');
-                    loader.classList.add('opacity-100');
-                });
-
-                // Simulate AI stages
-                const title = document.getElementById('loadingTitle');
-                const subtitle = document.getElementById('loadingSubtitle');
-
-                setTimeout(() => {
-                    title.innerText = "Extracting Ingredients...";
-                    subtitle.innerText = "Building your shopping list";
-                }, 1500);
-
-                setTimeout(() => {
-                    title.innerText = "Calibrating Swaps...";
-                    subtitle.innerText = "Applying Gluten-Free & Dairy-Free logic";
-                }, 3000);
-
-                setTimeout(() => {
-                    // Redirect to the success screen
-                    window.location.href = 'extracted-recipe.html';
-                }, 4500);
-
-            }, 500);
-        });
-    </script>
+    <script src="js/api-base.js"></script>
+    <script src="js/import.js"></script>
 </body>
-
 </html>
->>>>>>> origin/main
