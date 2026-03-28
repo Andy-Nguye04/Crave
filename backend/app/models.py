@@ -57,4 +57,5 @@ class SavedRecipe(Base):
     recipe_name = Column(String, nullable=False)
     source_url = Column(String, nullable=False)
     thumbnail_url = Column(String, nullable=True)
+    session_id = Column(String, nullable=True)
     saved_at = Column(DateTime, default=datetime.utcnow)

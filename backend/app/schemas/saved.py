@@ -18,4 +18,5 @@ class SavedRecipe(BaseModel):
     recipe_name: str
     source_url: str
     thumbnail_url: Optional[str] = None
+    session_id: Optional[str] = None
     saved_at: datetime

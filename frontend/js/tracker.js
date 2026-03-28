@@ -169,11 +169,15 @@
                 '<div class="flex-grow">' +
                 '<h4 class="font-headline font-bold text-lg leading-tight mb-1">' + escapeHtml(item.recipe_name) + '</h4>' +
                 '<p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">' +
-                '<span class="material-symbols-outlined text-[14px]">open_in_new</span> Tap to watch original' +
+                '<span class="material-symbols-outlined text-[14px]">open_in_new</span> ' + (item.session_id ? 'See recipe' : 'Tap to watch original') +
                 '</p>' +
                 '</div>';
 
-            if (item.source_url) {
+            if (item.session_id) {
+                card.addEventListener("click", function () {
+                    window.location.href = "extracted-recipe.html?session=" + encodeURIComponent(item.session_id);
+                });
+            } else if (item.source_url) {
                 card.addEventListener("click", function () { window.open(item.source_url, "_blank"); });
             }
             historyList.appendChild(card);

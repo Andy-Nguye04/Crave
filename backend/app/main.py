@@ -13,6 +13,7 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 
 from app.config import get_settings
 from app.routers import auth, cooking_ws, parse_youtube, profile, recipes, history, saved
@@ -25,6 +26,14 @@ logger = logging.getLogger("crave")
 app = FastAPI(title="Crave API", version="0.1.0")
 
 Base.metadata.create_all(bind=engine)
+
+# Migrate existing DB: add session_id to saved_recipes if not present
+with engine.connect() as _conn:
+    try:
+        _conn.execute(text("ALTER TABLE saved_recipes ADD COLUMN session_id VARCHAR"))
+        _conn.commit()
+    except Exception:
+        pass  # column already exists
 
 _settings = get_settings()
 app.add_middleware(

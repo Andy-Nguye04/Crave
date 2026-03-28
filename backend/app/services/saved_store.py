@@ -51,6 +51,7 @@ def save_recipe(user_id: str, session_id: str) -> SavedRecipeSchema:
             recipe_name=recipe.recipe_name or "Unknown Recipe",
             source_url=source_url,
             thumbnail_url=_extract_thumb(source_url),
+            session_id=session_id,
             saved_at=datetime.utcnow(),
         )
         db.add(record)
@@ -62,6 +63,7 @@ def save_recipe(user_id: str, session_id: str) -> SavedRecipeSchema:
             recipe_name=record.recipe_name,
             source_url=record.source_url,
             thumbnail_url=record.thumbnail_url,
+            session_id=record.session_id,
             saved_at=record.saved_at,
         )
 
@@ -82,6 +84,7 @@ def get_saved_recipes(user_id: str) -> List[SavedRecipeSchema]:
                 recipe_name=r.recipe_name,
                 source_url=r.source_url,
                 thumbnail_url=r.thumbnail_url,
+                session_id=r.session_id,
                 saved_at=r.saved_at,
             )
             for r in results
