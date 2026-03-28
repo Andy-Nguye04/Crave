@@ -91,7 +91,7 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
 7. **Cookbook / Tracker** (`tracker.html`)
    - Two tabs: **Cooked** and **Saved**.
    - **Cooked tab** (default): fetches `GET /api/history?sort_by=ranked` — displays ranked recipe cards with YouTube thumbnails, star ratings, and tags.
-   - **Saved tab**: fetches `GET /api/saved` — displays bookmarked recipes with thumbnail.
+   - **Saved tab**: fetches `GET /api/saved` — displays bookmarked recipes with thumbnail. Each card has a `bookmark_remove` button that calls `DELETE /api/saved/{id}` and removes the card from the DOM instantly; shows empty state if no cards remain.
    - Clicking a Cooked or Saved card with a `session_id` navigates to `extracted-recipe.html?session=<id>&from=tracker` (no re-parsing). Cards without a `session_id` (saved before this feature) fall back to opening the YouTube URL in a new tab.
    - `+` FAB routes back to Import.
 

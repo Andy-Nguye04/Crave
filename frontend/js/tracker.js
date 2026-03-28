@@ -177,6 +177,32 @@
                 '</p>' +
                 '</div>';
 
+            // Unsave button
+            var unsaveBtn = document.createElement("button");
+            unsaveBtn.type = "button";
+            unsaveBtn.className = "flex-shrink-0 p-2 text-on-surface-variant hover:text-red-500 rounded-full hover:bg-surface-container transition-colors";
+            unsaveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">bookmark_remove</span>';
+            unsaveBtn.addEventListener("click", function (ev) {
+                ev.stopPropagation();
+                unsaveBtn.disabled = true;
+                fetch(base + "/api/saved/" + encodeURIComponent(item.id), {
+                    method: "DELETE",
+                    headers: authHeaders()
+                }).then(function (res) {
+                    if (res.ok) {
+                        card.remove();
+                        if (!historyList.querySelector(".group")) {
+                            renderSaved([]);
+                        }
+                    } else {
+                        unsaveBtn.disabled = false;
+                    }
+                }).catch(function () {
+                    unsaveBtn.disabled = false;
+                });
+            });
+            card.appendChild(unsaveBtn);
+
             if (item.session_id) {
                 card.addEventListener("click", function () {
                     window.location.href = "extracted-recipe.html?session=" + encodeURIComponent(item.session_id) + "&from=tracker";
