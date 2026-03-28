@@ -1,8 +1,7 @@
 """
-In-memory auth store for the hackathon MVP.
-
+Auth store for the MVP.
 Uses hashlib for basic passwords and UUIDs for session tokens.
-Lost on restart.
+Uses SQLite via SQLAlchemy.
 """
 
 from __future__ import annotations
@@ -11,80 +10,63 @@ import hashlib
 import uuid
 from typing import Optional
 
+from sqlalchemy.orm import Session as DBSession
+
 from app.logging_utils import trace_calls
-
-# In-memory stores
-# email -> {"pwd_hash": str, "user_id": str}
-_users: dict[str, dict[str, str]] = {}
-# access_token -> user_id
-_sessions: dict[str, str] = {}
-
+from app.database import SessionLocal
+from app.models import User, Session
 
 def _hash_password(password: str) -> str:
     """Hashes a password with SHA-256 for basic MVP security."""
     return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
-
 @trace_calls
 def register_user(email: str, password: str) -> str:
-    """
-    Registers a new user and returns a session token.
-
-    Args:
-        email: User email.
-        password: Plain text password.
-        
-    Returns:
-        The access token.
-        
-    Raises:
-        ValueError: If email is already taken.
-    """
     email = email.lower()
-    if email in _users:
-        raise ValueError("Email already registered")
-
-    user_id = str(uuid.uuid4())
-    _users[email] = {
-        "pwd_hash": _hash_password(password),
-        "user_id": user_id
-    }
     
-    # Generate and save session token
-    token = str(uuid.uuid4())
-    _sessions[token] = user_id
+    with SessionLocal() as db:
+        existing = db.query(User).filter(User.email == email).first()
+        if existing:
+            raise ValueError("Email already registered")
+
+        user = User(
+            email=email,
+            pwd_hash=_hash_password(password)
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user) 
+        
+        token = str(uuid.uuid4())
+        session_record = Session(access_token=token, user_id=user.id)
+        db.add(session_record)
+        db.commit()
     
     return token
 
-
 @trace_calls
 def authenticate_user(email: str, password: str) -> Optional[str]:
-    """
-    Authenticates a user and returns a session token.
-
-    Args:
-        email: User email.
-        password: Plain text password.
-        
-    Returns:
-        The access token if valid, else None.
-    """
     email = email.lower()
-    user_record = _users.get(email)
-    
-    if not user_record:
-        return None
+    with SessionLocal() as db:
+        user = db.query(User).filter(User.email == email).first()
         
-    if user_record["pwd_hash"] != _hash_password(password):
-        return None
+        if not user:
+            return None
+            
+        if user.pwd_hash != _hash_password(password):
+            return None
+            
+        token = str(uuid.uuid4())
+        session_record = Session(access_token=token, user_id=user.id)
+        db.add(session_record)
+        db.commit()
         
-    # Generate a new session token upon successive logins
-    token = str(uuid.uuid4())
-    _sessions[token] = user_record["user_id"]
-    
     return token
 
 @trace_calls
 def get_user_id_from_token(token: str) -> Optional[str]:
-    """Retrieves user_id from session token."""
-    return _sessions.get(token)
+    with SessionLocal() as db:
+        session_record = db.query(Session).filter(Session.access_token == token).first()
+        if session_record:
+            return session_record.user_id
+    return None

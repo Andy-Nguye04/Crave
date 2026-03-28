@@ -15,12 +15,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.routers import auth, cooking_ws, parse_youtube, profile, recipes
+from app.routers import auth, cooking_ws, parse_youtube, profile, recipes, history
+from app.database import engine
+from app.models import Base
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("crave")
 
 app = FastAPI(title="Crave API", version="0.1.0")
+
+Base.metadata.create_all(bind=engine)
 
 _settings = get_settings()
 app.add_middleware(
@@ -36,6 +40,7 @@ app.include_router(profile.router)
 app.include_router(parse_youtube.router)
 app.include_router(recipes.router)
 app.include_router(cooking_ws.router)
+app.include_router(history.router)
 
 
 @app.get("/health")
