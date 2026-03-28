@@ -19,6 +19,7 @@ from app.config import get_settings
 from app.routers import auth, cooking_ws, parse_youtube, profile, recipes, history, saved
 from app.database import engine
 from app.models import Base
+from app.services.auth_store import ensure_demo_user
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("crave")
@@ -26,6 +27,7 @@ logger = logging.getLogger("crave")
 app = FastAPI(title="Crave API", version="0.1.0")
 
 Base.metadata.create_all(bind=engine)
+ensure_demo_user()
 
 # Migrate existing DB: add session_id to saved_recipes and cooked_history if not present
 with engine.connect() as _conn:

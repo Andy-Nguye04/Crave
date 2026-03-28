@@ -16,9 +16,35 @@ from app.logging_utils import trace_calls
 from app.database import SessionLocal
 from app.models import User, Session
 
+DEMO_USER_EMAIL = "demo@crave.app"
+DEMO_USER_PASSWORD = "demo"
+DEMO_TOKEN = "crave-demo-token-hackathon"
+
+
 def _hash_password(password: str) -> str:
     """Hashes a password with SHA-256 for basic MVP security."""
     return hashlib.sha256(password.encode("utf-8")).hexdigest()
+
+
+def ensure_demo_user() -> None:
+    """Create the default demo user and session token if they don't exist."""
+    with SessionLocal() as db:
+        user = db.query(User).filter(User.email == DEMO_USER_EMAIL).first()
+        if not user:
+            user = User(
+                email=DEMO_USER_EMAIL,
+                pwd_hash=_hash_password(DEMO_USER_PASSWORD),
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+
+        existing_session = db.query(Session).filter(
+            Session.access_token == DEMO_TOKEN
+        ).first()
+        if not existing_session:
+            db.add(Session(access_token=DEMO_TOKEN, user_id=user.id))
+            db.commit()
 
 @trace_calls
 def register_user(email: str, password: str) -> str:
