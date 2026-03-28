@@ -1,0 +1,38 @@
+# Secrets — never commit API keys
+.env
+backend/.env
+*.pem
+
+# Python
+backend/.venv/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.idea/
+*.swp
+*.swo
+
+# Optional: uncomment if you don’t want shared VS Code settings in git
+# .vscode/
+
+# Node (if you add a JS toolchain later)
+node_modules/
