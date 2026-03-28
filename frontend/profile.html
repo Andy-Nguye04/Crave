@@ -93,7 +93,7 @@
 </button>
 <h1 class="font-headline font-bold tracking-tight text-2xl font-extrabold text-[#0f5238] dark:text-[#b1f0ce]">Crave</h1>
 <div class="w-10 h-10 rounded-full overflow-hidden scale-95 active:scale-90 transition-transform hover:opacity-80 transition-opacity ring-2 ring-primary-fixed">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a woman with a warm smile in soft natural sunlight with a blurred garden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbsy_3PuokVQrmhkMyG6zkrNG4k9V-ll_WVm1uDfigt2ku1iPenMsLZnpROCGzfWndlt5MPCrgPexX4dbnNCkwkIJvvi6I42NMN9MJfGdqgKtSW2Vm6joCgfN0eC3KD_Dx4BtJMZGu-cT-rtzLxZlSZM146xAveV6ecY6VmErOmfd3UdI7LLODD2MP4cKpv9vLF3yNeh5_2X6daLeHqSJ1EpfnLcNZRqEMk940a40GOwjlAXnGJ9Cnajfjujc0u90GifsdkGFNd_0"/>
+<img id="header-avatar" alt="User Profile" class="w-full h-full object-cover" src=""/>
 </div>
 </header>
 <main class="pt-24 pb-32 px-6 max-w-2xl mx-auto min-h-screen">
@@ -101,13 +101,13 @@
 <section class="flex flex-col items-center text-center mb-12">
 <div class="relative mb-6">
 <div class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-surface-container-high p-1 bg-surface-container-low">
-<img alt="Elena Rodriguez" class="w-full h-full object-cover rounded-full" data-alt="high-quality editorial portrait of a woman with glowing skin and minimalist jewelry against a soft sage green background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMIeLZY3Bf-xTwJvGsFvvVzt2rfc_sTLpG3ggBvJMXOoI1PaHjUq79p9-az_kqnGBvMiGdTjT9or3aIOHm-yvycngsfNq0iJVuzIpPOf84M9GCMxxAF6uPDjrqEtjjKQiSfclGcBSjWLPxgUVyXh9zATy4tN1rN_hj-3tEZulaOPpHYccFVk-jMOYWa6MUgymxGGAffgRoXjxCYU9xhDfT7pGcESo2EZLXvHLw1Prk_PDI2OXrHtXPdtErCP7ZUXZjRcA2LAJ0P1M"/>
+<img id="user-avatar" alt="User Profile" class="w-full h-full object-cover rounded-full" src=""/>
 </div>
 <button class="absolute bottom-1 right-1 botanical-gradient text-white p-2 rounded-full shadow-lg border-4 border-background hover:scale-105 transition-transform">
 <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
 </button>
 </div>
-<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-1">Elena Rodriguez</h2>
+<h2 id="user-name" class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-1"></h2>
 </section>
 <!-- Dietary Restrictions Section -->
 <section class="bg-surface-container-low rounded-[2rem] p-8 mb-8">
@@ -131,7 +131,7 @@
 <span class="font-headline font-semibold text-on-surface">Vegan</span>
 </div>
 <label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" type="checkbox" value=""/>
+<input id="toggle-vegan" class="sr-only peer" type="checkbox" value=""/>
 <div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
 </label>
 </div>
@@ -144,7 +144,7 @@
 <span class="font-headline font-semibold text-on-surface">Gluten-Free</span>
 </div>
 <label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<input id="toggle-gluten" class="sr-only peer" type="checkbox" value=""/>
 <div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
 </label>
 </div>
@@ -157,7 +157,7 @@
 <span class="font-headline font-semibold text-on-surface">Nut-Free</span>
 </div>
 <label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<input id="toggle-nut" class="sr-only peer" type="checkbox" value=""/>
 <div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
 </label>
 </div>
@@ -170,7 +170,7 @@
 <span class="font-headline font-semibold text-on-surface">Dairy-Free</span>
 </div>
 <label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" type="checkbox" value=""/>
+<input id="toggle-dairy" class="sr-only peer" type="checkbox" value=""/>
 <div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
 </label>
 </div>
@@ -179,10 +179,11 @@
 <div class="mt-8">
 <p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-4 px-1">Other Allergies</p>
 <div class="relative group">
-<input class="w-full bg-surface-container-high border-none rounded-full py-4 pl-6 pr-12 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary-fixed transition-all scale-100 focus:scale-[1.02]" placeholder="Add custom allergy..." type="text"/>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 botanical-gradient rounded-full text-white flex items-center justify-center shadow-md">
+<input id="allergy-input" class="w-full bg-surface-container-high border-none rounded-full py-4 pl-6 pr-12 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary-fixed transition-all scale-100 focus:scale-[1.02]" placeholder="Add custom allergy..." type="text"/>
+<button id="add-allergy-btn" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 botanical-gradient rounded-full text-white flex items-center justify-center shadow-md">
 <span class="material-symbols-outlined" data-icon="add">add</span>
 </button>
+<div id="allergies-container" class="mt-4 flex flex-wrap gap-2"></div>
 </div>
 </div>
 </section>
@@ -204,7 +205,7 @@
 </div>
 <span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
 </button>
-<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors">
+<button id="logout-btn" class="w-full flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors">
 <div class="flex items-center gap-4">
 <span class="material-symbols-outlined text-error" data-icon="logout">logout</span>
 <span class="font-headline font-medium text-error">Sign Out</span>
@@ -234,4 +235,5 @@
         <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Profile</span>
     </a>
 </nav>
+<script src="js/profile.js"></script>
 </body></html>

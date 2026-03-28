@@ -15,7 +15,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.routers import cooking_ws, parse_youtube, recipes
+from app.routers import auth, cooking_ws, parse_youtube, profile, recipes
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("crave")
@@ -31,6 +31,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router)
+app.include_router(profile.router)
 app.include_router(parse_youtube.router)
 app.include_router(recipes.router)
 app.include_router(cooking_ws.router)
