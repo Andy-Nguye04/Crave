@@ -18,6 +18,7 @@ class CookedRecipe(BaseModel):
     recipe_name: str
     source_url: str
     thumbnail_url: Optional[str] = None
+    session_id: Optional[str] = None
     rating: int
     tags: List[str]
     cooked_at: datetime

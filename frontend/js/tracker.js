@@ -121,7 +121,11 @@
                 '</p>' +
                 '</div>';
 
-            if (item.source_url) {
+            if (item.session_id) {
+                card.addEventListener("click", function () {
+                    window.location.href = "extracted-recipe.html?session=" + encodeURIComponent(item.session_id) + "&from=tracker";
+                });
+            } else if (item.source_url) {
                 card.addEventListener("click", function () { window.open(item.source_url, "_blank"); });
             }
             historyList.appendChild(card);
@@ -175,7 +179,7 @@
 
             if (item.session_id) {
                 card.addEventListener("click", function () {
-                    window.location.href = "extracted-recipe.html?session=" + encodeURIComponent(item.session_id);
+                    window.location.href = "extracted-recipe.html?session=" + encodeURIComponent(item.session_id) + "&from=tracker";
                 });
             } else if (item.source_url) {
                 card.addEventListener("click", function () { window.open(item.source_url, "_blank"); });

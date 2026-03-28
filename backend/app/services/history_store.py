@@ -37,6 +37,7 @@ def add_cooked_recipe(user_id: str, request: HistoryAddRequest) -> CookedRecipe:
             recipe_name=recipe.recipe_name or "Unknown Recipe",
             source_url=recipe.source_url or "",
             thumbnail_url=thumbnail_url,
+            session_id=request.session_id,
             rating=request.rating,
             tags=request.tags,
             cooked_at=datetime.utcnow()
@@ -44,12 +45,13 @@ def add_cooked_recipe(user_id: str, request: HistoryAddRequest) -> CookedRecipe:
         db.add(history_record)
         db.commit()
         db.refresh(history_record)
-        
+
         return CookedRecipe(
             id=history_record.id,
             recipe_name=history_record.recipe_name,
             source_url=history_record.source_url,
             thumbnail_url=history_record.thumbnail_url,
+            session_id=history_record.session_id,
             rating=history_record.rating,
             tags=history_record.tags,
             cooked_at=history_record.cooked_at
@@ -73,6 +75,7 @@ def get_user_history(user_id: str, sort_by: str = "ranked") -> List[CookedRecipe
                 recipe_name=r.recipe_name,
                 source_url=r.source_url,
                 thumbnail_url=r.thumbnail_url,
+                session_id=r.session_id,
                 rating=r.rating,
                 tags=r.tags,
                 cooked_at=r.cooked_at

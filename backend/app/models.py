@@ -46,6 +46,7 @@ class CookedHistory(Base):
     recipe_name = Column(String, nullable=False)
     source_url = Column(String, nullable=False)
     thumbnail_url = Column(String, nullable=True)
+    session_id = Column(String, nullable=True)
     rating = Column(Integer, nullable=False)
     tags = Column(JSON, default=list)
     cooked_at = Column(DateTime, default=datetime.utcnow)

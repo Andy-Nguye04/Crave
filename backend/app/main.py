@@ -27,13 +27,17 @@ app = FastAPI(title="Crave API", version="0.1.0")
 
 Base.metadata.create_all(bind=engine)
 
-# Migrate existing DB: add session_id to saved_recipes if not present
+# Migrate existing DB: add session_id to saved_recipes and cooked_history if not present
 with engine.connect() as _conn:
-    try:
-        _conn.execute(text("ALTER TABLE saved_recipes ADD COLUMN session_id VARCHAR"))
-        _conn.commit()
-    except Exception:
-        pass  # column already exists
+    for _stmt in [
+        "ALTER TABLE saved_recipes ADD COLUMN session_id VARCHAR",
+        "ALTER TABLE cooked_history ADD COLUMN session_id VARCHAR",
+    ]:
+        try:
+            _conn.execute(text(_stmt))
+            _conn.commit()
+        except Exception:
+            pass  # column already exists
 
 _settings = get_settings()
 app.add_middleware(
