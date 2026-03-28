@@ -97,22 +97,17 @@
 
         <!-- Hero Image -->
         <div class="relative w-full h-[40vh] md:h-[50vh] overflow-hidden rounded-b-[2.5rem] shadow-lg">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY"
-                alt="Creamy Vodka Pasta" class="absolute inset-0 w-full h-full object-cover">
+            <img id="extracted-hero-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY"
+                alt="Recipe" class="absolute inset-0 w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
             <!-- Origin Overlay -->
             <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
                 <div>
-                    <h1
+                    <h1 id="extracted-hero-title"
                         class="text-white font-headline text-3xl font-black mb-1 leading-tight tracking-tight shadow-sm">
-                        Creamy Tomato Vodka Pasta</h1>
-                    <div class="flex flex-wrap items-center gap-2 mt-2">
-                        <span
-                            class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-white/20">25
-                            mins</span>
-                        <span
-                            class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-white/20">Medium</span>
+                        Loading…</h1>
+                    <div id="extracted-hero-meta" class="flex flex-wrap items-center gap-2 mt-2">
                     </div>
                 </div>
                 <img src="https://ui-avatars.com/api/?name=Chef&background=random"
@@ -130,29 +125,10 @@
                         style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
                     Dietary Check
                 </h3>
-                <p class="text-sm text-white/90 leading-relaxed mb-4">
-                    Based on your profile, we've verified this recipe suits your <span
-                        class="font-bold text-[#b1f0ce]">Gluten-Free</span> and <span
-                        class="font-bold text-[#b1f0ce]">Dairy-Free</span> preferences by applying automated swaps.
+                <p id="extracted-dietary-blurb" class="text-sm text-white/90 leading-relaxed mb-4">
+                    Loading dietary summary…
                 </p>
-                <!-- Generated Swaps -->
-                <div class="space-y-2">
-                    <div
-                        class="flex items-center gap-3 bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/10">
-                        <span class="material-symbols-outlined text-warning"
-                            style="font-variation-settings: 'FILL' 1;">warning</span>
-                        <span class="text-xs font-medium line-through opacity-70">Penne Pasta (Contains Gluten)</span>
-                        <span class="material-symbols-outlined text-white text-[14px]">arrow_forward</span>
-                        <span class="text-sm font-bold text-[#b1f0ce]">Brown Rice Penne</span>
-                    </div>
-                    <div
-                        class="flex items-center gap-3 bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/10">
-                        <span class="material-symbols-outlined text-warning"
-                            style="font-variation-settings: 'FILL' 1;">warning</span>
-                        <span class="text-xs font-medium line-through opacity-70">Heavy Cream (Contains Dairy)</span>
-                        <span class="material-symbols-outlined text-white text-[14px]">arrow_forward</span>
-                        <span class="text-sm font-bold text-[#b1f0ce]">Cashew Cream</span>
-                    </div>
+                <div id="extracted-swaps" class="space-y-2">
                 </div>
             </section>
 
@@ -163,94 +139,28 @@
                     <span class="text-xs font-bold uppercase tracking-widest text-primary">Serves 2</span>
                 </div>
 
-                <div
+                <div id="extracted-ingredients-container"
                     class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/20 shadow-sm space-y-4">
-                    <!-- Adjusted ingredients list -->
-                    <label class="flex items-center gap-4 cursor-pointer group">
-                        <input type="checkbox"
-                            class="peer w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/40 focus:ring-offset-0 bg-transparent transition-all">
-                        <div
-                            class="flex-1 border-b border-outline-variant/10 pb-3 group-last:border-0 group-last:pb-0 peer-checked:opacity-60 peer-checked:line-through">
-                            <span class="font-medium text-[15px] group-hover:text-primary transition-colors">GF Brown
-                                Rice Penne</span>
-                            <span
-                                class="block text-xs font-semibold text-on-surface-variant/70 uppercase tracking-wide">8
-                                oz</span>
-                        </div>
-                    </label>
-
-                    <label class="flex items-center gap-4 cursor-pointer group">
-                        <input type="checkbox"
-                            class="peer w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/40 focus:ring-offset-0 bg-transparent transition-all"
-                            checked>
-                        <div
-                            class="flex-1 border-b border-outline-variant/10 pb-3 group-last:border-0 group-last:pb-0 peer-checked:opacity-60 peer-checked:line-through">
-                            <span class="font-medium text-[15px] group-hover:text-primary transition-colors">Tomato
-                                Paste</span>
-                            <span
-                                class="block text-xs font-semibold text-on-surface-variant/70 uppercase tracking-wide">4
-                                tbsp</span>
-                        </div>
-                        <span class="material-symbols-outlined text-success text-[20px]"
-                            title="In Pantry">check_circle</span>
-                    </label>
-
-                    <label class="flex items-center gap-4 cursor-pointer group">
-                        <input type="checkbox"
-                            class="peer w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/40 focus:ring-offset-0 bg-transparent transition-all">
-                        <div
-                            class="flex-1 border-b border-outline-variant/10 pb-3 group-last:border-0 group-last:pb-0 peer-checked:opacity-60 peer-checked:line-through">
-                            <span class="font-medium text-[15px] group-hover:text-primary transition-colors">Cashew
-                                Cream <span
-                                    class="text-[10px] bg-primary-fixed/40 text-primary px-1.5 py-0.5 rounded-sm ml-1 no-underline">AI
-                                    SWAP</span></span>
-                            <span
-                                class="block text-xs font-semibold text-on-surface-variant/70 uppercase tracking-wide">1/2
-                                cup</span>
-                        </div>
-                    </label>
-
-                    <label class="flex items-center gap-4 cursor-pointer group">
-                        <input type="checkbox"
-                            class="peer w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/40 focus:ring-offset-0 bg-transparent transition-all">
-                        <div
-                            class="flex-1 border-b border-outline-variant/10 pb-3 group-last:border-0 group-last:pb-0 peer-checked:opacity-60 peer-checked:line-through">
-                            <span
-                                class="font-medium text-[15px] group-hover:text-primary transition-colors">Vodka</span>
-                            <span
-                                class="block text-xs font-semibold text-on-surface-variant/70 uppercase tracking-wide">2
-                                oz</span>
-                        </div>
-                    </label>
                 </div>
+                <p id="extracted-error" class="hidden text-sm text-red-600 font-medium mt-3 px-1" role="alert"></p>
             </section>
 
             <!-- Pantry / Allergy Alternatives (Active Suggestions) -->
-            <section>
+            <section id="extracted-alternatives-section">
                 <h3 class="font-headline text-lg font-bold mb-4 px-1 flex items-center gap-2">
                     <span class="material-symbols-outlined text-warning"
                         style="font-variation-settings: 'FILL' 1;">lightbulb</span>
-                    Smart Alternatives
+                    Smart alternatives
                 </h3>
 
                 <div
                     class="bg-surface-container-low rounded-[2rem] p-5 shadow-sm border border-outline-variant/10 space-y-4">
                     <div class="flex gap-4">
                         <div
-                            class="w-10 h-10 rounded-full bg-surface-container-highest flex-shrink-0 flex items-center justify-center text-on-surface-variant">
-                            <span class="material-symbols-outlined text-[20px]">liquor</span>
+                            class="w-10 h-10 rounded-full bg-surface-container-high flex-shrink-0 flex items-center justify-center text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[20px]">tips_and_updates</span>
                         </div>
-                        <div>
-                            <p class="font-headline font-semibold text-sm mb-1">Don't have Vodka?</p>
-                            <p class="text-xs text-on-surface-variant leading-relaxed mb-3">
-                                You can use <span class="font-bold text-on-surface">Vegetable Broth with a squeeze of
-                                    Lemon</span> to add the necessary acidity without the alcohol, maintaining your
-                                dietary settings.
-                            </p>
-                            <button
-                                class="text-primary text-[11px] font-bold uppercase tracking-widest border border-primary/30 px-4 py-1.5 rounded-full hover:bg-primary-fixed hover:border-primary-fixed transition-colors">
-                                Apply Swap
-                            </button>
+                        <div id="extracted-alternatives-body" class="min-w-0">
                         </div>
                     </div>
                 </div>
@@ -263,15 +173,16 @@
     <div
         class="fixed bottom-0 left-0 w-full z-50 glass-panel border-t border-outline-variant/10 py-5 px-6 shadow-[0_-8px_32px_rgba(0,0,0,0.06)]">
         <div class="max-w-2xl mx-auto flex gap-4">
-            <button
-                class="flex-1 py-4 botanical-gradient text-white rounded-2xl font-headline font-extrabold text-[15px] tracking-widest uppercase shadow-xl shadow-primary/30 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform animate-pulse-glow"
-                onclick="window.location.href='cooking-mode-prep.html'">
+            <button type="button" id="extracted-start-cooking"
+                class="flex-1 py-4 botanical-gradient text-white rounded-2xl font-headline font-extrabold text-[15px] tracking-widest uppercase shadow-xl shadow-primary/30 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform animate-pulse-glow disabled:opacity-50 disabled:pointer-events-none">
                 <span class="material-symbols-outlined">soup_kitchen</span>
-                Start Cooking
+                Start cooking
             </button>
         </div>
     </div>
 
+    <script src="js/api-base.js"></script>
+    <script src="js/extracted-recipe.js"></script>
 </body>
 
 </html>

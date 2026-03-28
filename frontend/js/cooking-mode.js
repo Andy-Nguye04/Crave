@@ -59,7 +59,14 @@
             detailEl.textContent = s.visual_context || "";
         }
         if (btnPrev) btnPrev.disabled = stepIdx <= 0;
-        if (btnNext) btnNext.disabled = stepIdx >= steps.length - 1;
+        /* Last step: next control finishes to cooking-mode-finish.html */
+        if (btnNext) {
+            btnNext.disabled = steps.length === 0;
+            btnNext.title =
+                steps.length && stepIdx >= steps.length - 1
+                    ? "Finish recipe"
+                    : "Next step";
+        }
     }
 
     function renderIngredients(list) {
@@ -162,9 +169,14 @@
     }
     if (btnNext) {
         btnNext.addEventListener("click", function () {
+            if (!steps.length) return;
             if (stepIdx < steps.length - 1) {
                 stepIdx += 1;
                 renderStep();
+            } else {
+                window.location.href =
+                    "cooking-mode-finish.html?session=" +
+                    encodeURIComponent(sessionId);
             }
         });
     }
