@@ -47,7 +47,7 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
 |----------------------------|-------------|
 | `index.html`               | Sign in page (email/password). |
 | `signup.html`              | Registration page. |
-| `extracted-recipe.html`    | Recipe prep screen — shows parsed ingredients, dietary flags, and AI-suggested swaps before cooking starts. |
+| `extracted-recipe.html`    | Recipe prep screen — shows parsed ingredients, dietary flags, and AI-suggested swaps before cooking starts. Back button returns to `import.html` by default, or `tracker.html` if the `from=tracker` query param is present. |
 | `cooking-mode.html`        | The live cooking experience — step-by-step with real-time Gemini WebSocket assistant. |
 | `cooking-mode-finish.html` | Post-cook celebration screen with star rating, quick tags, and "Log to Tracker" CTA. |
 
@@ -74,7 +74,9 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
    - Ingredients with dietary conflicts are flagged with `dietary_conflict: true`.
    - AI Swap UI shows suggested substitutes inline.
    - **Save button** (top-right): calls `POST /api/saved` → briefly shows "Saved!" with a filled bookmark icon → automatically redirects to the Cookbook Saved tab after 600ms.
+   - **Back button**: returns to `import.html` (clean load, bypasses bfcache). If the user arrived from the Cookbook (`?from=tracker`), returns to `tracker.html` instead.
    - User can also skip saving and tap **Start Cooking** to proceed directly to Cooking Mode.
+   - Reachable from the Cookbook (Cooked or Saved tab) via stored `session_id` — no re-parsing required.
 
 5. **Cooking Mode** (`cooking-mode.html`)
    - Step-by-step walkthrough of the recipe.
@@ -89,8 +91,8 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
 7. **Cookbook / Tracker** (`tracker.html`)
    - Two tabs: **Cooked** and **Saved**.
    - **Cooked tab** (default): fetches `GET /api/history?sort_by=ranked` — displays ranked recipe cards with YouTube thumbnails, star ratings, and tags.
-   - **Saved tab**: fetches `GET /api/saved` — displays bookmarked recipes with thumbnail and a link to the original YouTube video.
-   - Clicking any saved card opens the source YouTube URL in a new tab.
+   - **Saved tab**: fetches `GET /api/saved` — displays bookmarked recipes with thumbnail.
+   - Clicking a Cooked or Saved card with a `session_id` navigates to `extracted-recipe.html?session=<id>&from=tracker` (no re-parsing). Cards without a `session_id` (saved before this feature) fall back to opening the YouTube URL in a new tab.
    - `+` FAB routes back to Import.
 
 ---
@@ -154,8 +156,8 @@ All protected endpoints require `Authorization: Bearer <token>` header.
 | `sessions`       | `access_token`, `user_id` |
 | `profiles`       | `user_id`, `name`, `vegan`, `gluten_free`, `nut_free`, `dairy_free`, `allergies (JSON)` |
 | `parsed_recipes` | `session_id`, `dry_run`, `schema_dump (JSON)` |
-| `cooked_history` | `id`, `user_id`, `recipe_name`, `source_url`, `thumbnail_url`, `rating`, `tags (JSON)`, `cooked_at` |
-| `saved_recipes`  | `id`, `user_id`, `recipe_name`, `source_url`, `thumbnail_url`, `saved_at` |
+| `cooked_history` | `id`, `user_id`, `recipe_name`, `source_url`, `thumbnail_url`, `session_id`, `rating`, `tags (JSON)`, `cooked_at` |
+| `saved_recipes`  | `id`, `user_id`, `recipe_name`, `source_url`, `thumbnail_url`, `session_id`, `saved_at` |
 
 ---
 
