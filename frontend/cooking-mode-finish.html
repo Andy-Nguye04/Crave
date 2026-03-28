@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Crave - Recipe Complete</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f5238",
+                        "primary-fixed": "#b1f0ce",
+                        "on-surface": "#191c1a",
+                        "on-surface-variant": "#404943",
+                        "background": "#f8faf6",
+                        "surface-container": "#eceeea",
+                        "surface-container-low": "#f2f4f0",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e9e5",
+                        "outline-variant": "#bfc9c1",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .botanical-gradient { background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%); }
+        .stars input:checked ~ label { color: #0f5238; }
+        .stars label { color: #bfc9c1; cursor: pointer; transition: color 0.2s; }
+        .stars label:hover, .stars label:hover ~ label { color: #95d4b3; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed min-h-screen flex flex-col" onload="triggerConfetti()">
+
+    <!-- Top Navigation Anchor -->
+    <header class="fixed top-0 w-full z-50 bg-[#f8faf6]/90 backdrop-blur-2xl px-6 py-4 flex justify-between items-center border-b border-outline-variant/10">
+        <button class="text-[#0f5238] bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-transform active:scale-90" onclick="window.location.href='tracker.html'">
+            <span class="material-symbols-outlined font-bold" data-icon="close">close</span>
+        </button>
+        <div class="text-center">
+             <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant block leading-none mb-1">Recipe Complete</span>
+             <h1 class="font-headline font-bold tracking-tight text-xl text-on-surface leading-none">Step 8 of 8</h1>
+        </div>
+        <div class="w-10"></div> <!-- Spacer -->
+    </header>
+
+    <main class="flex-grow pt-28 pb-32 px-6 max-w-2xl mx-auto w-full flex flex-col items-center text-center">
+
+        <!-- Trophy/Celebration -->
+        <div class="w-32 h-32 rounded-full botanical-gradient shadow-2xl flex items-center justify-center mb-8 animate-float mt-4 relative">
+            <div class="absolute inset-0 rounded-full border border-white/30 scale-[1.1] opacity-50"></div>
+            <span class="material-symbols-outlined text-white text-6xl" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+        </div>
+
+        <h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-3 leading-tight">
+            Chef's Kiss!
+        </h2>
+        <p class="text-on-surface-variant text-lg leading-relaxed mb-10 max-w-sm">
+            You've successfully mastered the Hand-Pulled Garden Pesto Pappardelle.
+        </p>
+
+        <!-- Plating Suggestion -->
+        <div class="w-full bg-surface-container-low rounded-3xl p-6 mb-10 text-left relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/20 blur-3xl rounded-full"></div>
+            <h3 class="font-headline font-bold text-[#0f5238] text-sm uppercase tracking-widest mb-4 flex items-center gap-2 relative z-10">
+                <span class="material-symbols-outlined text-[18px]">camera</span>
+                Plating Suggestion
+            </h3>
+            <p class="text-sm font-medium text-on-surface-variant relative z-10">
+                Use tongs to twirl the pasta into a nest in the center of a wide, shallow bowl. Drizzle a tiny bit of high-quality olive oil on top and gently place 2-3 small basil leaves as a garnish. 
+            </p>
+        </div>
+
+        <!-- Rating & Logging -->
+        <div class="w-full">
+            <p class="font-headline font-bold text-on-surface text-xl mb-4">Rate this dish to rank it in your Tracker</p>
+            
+            <!-- Custom Star Rating (Beli inspired) -->
+            <div class="flex flex-row-reverse justify-center items-center gap-2 stars mb-8 text-4xl" style="font-variation-settings: 'FILL' 1;">
+                <input type="radio" id="star5" name="rate" value="5" class="hidden"/>
+                <label for="star5" class="material-symbols-outlined" title="5 stars">star</label>
+                <input type="radio" id="star4" name="rate" value="4" class="hidden"/>
+                <label for="star4" class="material-symbols-outlined" title="4 stars">star</label>
+                <input type="radio" id="star3" name="rate" value="3" class="hidden"/>
+                <label for="star3" class="material-symbols-outlined" title="3 stars">star</label>
+                <input type="radio" id="star2" name="rate" value="2" class="hidden"/>
+                <label for="star2" class="material-symbols-outlined" title="2 stars">star</label>
+                <input type="radio" id="star1" name="rate" value="1" class="hidden"/>
+                <label for="star1" class="material-symbols-outlined" title="1 star">star</label>
+            </div>
+            
+            <!-- Quick Tags -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button class="bg-surface-container-lowest border border-outline-variant/30 px-4 py-1.5 rounded-full text-xs font-bold text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary transition-colors">Needs Salt</button>
+                <button class="bg-surface-container-lowest border border-outline-variant/30 px-4 py-1.5 rounded-full text-xs font-bold text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary transition-colors">Perfect</button>
+                <button class="bg-surface-container-lowest border border-outline-variant/30 px-4 py-1.5 rounded-full text-xs font-bold text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary transition-colors">Easy Prep</button>
+                <button class="bg-surface-container-lowest border border-outline-variant/30 px-4 py-1.5 rounded-full text-xs font-bold text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary transition-colors">+ Add Note</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Side Navigation -->
+    <div class="fixed top-1/2 -left-6 -translate-y-1/2 z-40 flex flex-col gap-2">
+        <button class="w-12 h-20 bg-surface-container-high rounded-r-2xl shadow-lg border-y border-r border-outline-variant/20 flex flex-col justify-center items-end pr-2 hover:w-14 transition-all" onclick="window.location.href='cooking-mode.html'">
+             <span class="material-symbols-outlined text-on-surface-variant">navigate_before</span>
+        </button>
+    </div>
+
+    <!-- Finish Action -->
+    <div class="fixed bottom-0 left-0 w-full z-50 px-6 pb-8 bg-gradient-to-t from-background via-background/90 to-transparent">
+        <div class="max-w-lg mx-auto w-full flex flex-col items-center">
+            <button class="w-full botanical-gradient text-white py-4 rounded-2xl font-headline font-extrabold text-[15px] tracking-widest uppercase shadow-xl shadow-primary/30 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform" onclick="window.location.href='tracker.html'">
+                <span class="material-symbols-outlined">check_circle</span>
+                Log to Tracker
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function triggerConfetti() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#0f5238', '#b1f0ce', '#ffffff']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#0f5238', '#b1f0ce', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
