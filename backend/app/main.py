@@ -15,7 +15,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.routers import auth, cooking_ws, parse_youtube, profile, recipes, history
+from app.routers import auth, cooking_ws, parse_youtube, profile, recipes, history, saved
 from app.database import engine
 from app.models import Base
 
@@ -41,6 +41,7 @@ app.include_router(parse_youtube.router)
 app.include_router(recipes.router)
 app.include_router(cooking_ws.router)
 app.include_router(history.router)
+app.include_router(saved.router)
 
 
 @app.get("/health")

@@ -10,6 +10,7 @@ Crave is an AI-native **web application** that transforms social media cooking c
 - **Personalized AI:** User dietary restrictions and allergies are injected into the Gemini prompt, automatically flagging ingredient conflicts and suggesting substitutions before cooking begins.
 - **Live Sous-Chef:** A real-time, WebSocket-driven AI cooking assistant that guides users step by step through the recipe.
 - **Cookbook Tracking:** Users rate completed recipes (1–5 stars) and tag them, building a persistent ranked history of their culinary journey.
+- **Save for Later:** Users can bookmark any extracted recipe before cooking and revisit it in a dedicated Saved tab in the Cookbook.
 
 ---
 
@@ -37,7 +38,7 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
 |-----------|----------------|-------------|
 | Discover  | `home.html`    | Social feed of trending recipes, quick filters, pantry suggestions. (Static MVP UI) |
 | Import    | `import.html`  | Paste a YouTube URL to trigger AI recipe extraction. |
-| Cookbook  | `tracker.html` | Personal ranked history of all cooked recipes (dynamic, API-driven). |
+| Cookbook  | `tracker.html` | Personal Cookbook with two tabs — **Cooked** (ranked history) and **Saved** (bookmarked recipes). |
 | Profile   | `profile.html` | Dietary preferences, allergy toggles, and account info. |
 
 ### Additional Pages
@@ -72,7 +73,8 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
    - Displays recipe name, ingredient list, and cook time.
    - Ingredients with dietary conflicts are flagged with `dietary_conflict: true`.
    - AI Swap UI shows suggested substitutes inline.
-   - User confirms and starts cooking.
+   - **Save button** (top-right): calls `POST /api/saved` → briefly shows "Saved!" with a filled bookmark icon → automatically redirects to the Cookbook Saved tab after 600ms.
+   - User can also skip saving and tap **Start Cooking** to proceed directly to Cooking Mode.
 
 5. **Cooking Mode** (`cooking-mode.html`)
    - Step-by-step walkthrough of the recipe.
@@ -85,9 +87,10 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
    - Clicks "Log to Tracker" → `POST /api/history` → redirected to Cookbook.
 
 7. **Cookbook / Tracker** (`tracker.html`)
-   - Dynamically fetches `GET /api/history?sort_by=ranked`.
-   - Displays ranked recipe cards with YouTube thumbnails, star ratings, and tags.
-   - Toggle between "Ranked" and "Recent" sort orders.
+   - Two tabs: **Cooked** and **Saved**.
+   - **Cooked tab** (default): fetches `GET /api/history?sort_by=ranked` — displays ranked recipe cards with YouTube thumbnails, star ratings, and tags.
+   - **Saved tab**: fetches `GET /api/saved` — displays bookmarked recipes with thumbnail and a link to the original YouTube video.
+   - Clicking any saved card opens the source YouTube URL in a new tab.
    - `+` FAB routes back to Import.
 
 ---
@@ -104,8 +107,11 @@ All protected endpoints require `Authorization: Bearer <token>` header.
 | PUT    | `/api/profile`        | Yes  | Update dietary preferences and allergies. |
 | POST   | `/api/parse-youtube`  | Yes  | Parse a YouTube URL. Returns `session_id` + recipe JSON. |
 | GET    | `/api/recipes/{id}`   | No   | Fetch a stored recipe session by ID. |
-| GET    | `/api/history`        | Yes  | Fetch user's cooked history (supports `?sort_by=ranked\|recent`). |
+| GET    | `/api/history`        | Yes  | Fetch user's cooked history (supports `?sort_by=ranked`). |
 | POST   | `/api/history`        | Yes  | Log a completed recipe with rating and tags. |
+| GET    | `/api/saved`          | Yes  | Fetch user's saved/bookmarked recipes (newest first). |
+| POST   | `/api/saved`          | Yes  | Save a recipe from a session. De-duplicates by URL per user (409 if already saved). |
+| DELETE | `/api/saved/{id}`     | Yes  | Remove a saved recipe (unsave). |
 | WS     | `/ws/cook/{id}`       | No   | WebSocket for live Gemini cooking assistant. |
 
 ---
@@ -149,6 +155,7 @@ All protected endpoints require `Authorization: Bearer <token>` header.
 | `profiles`       | `user_id`, `name`, `vegan`, `gluten_free`, `nut_free`, `dairy_free`, `allergies (JSON)` |
 | `parsed_recipes` | `session_id`, `dry_run`, `schema_dump (JSON)` |
 | `cooked_history` | `id`, `user_id`, `recipe_name`, `source_url`, `thumbnail_url`, `rating`, `tags (JSON)`, `cooked_at` |
+| `saved_recipes`  | `id`, `user_id`, `recipe_name`, `source_url`, `thumbnail_url`, `saved_at` |
 
 ---
 

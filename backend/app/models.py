@@ -49,3 +49,12 @@ class CookedHistory(Base):
     rating = Column(Integer, nullable=False)
     tags = Column(JSON, default=list)
     cooked_at = Column(DateTime, default=datetime.utcnow)
+
+class SavedRecipe(Base):
+    __tablename__ = "saved_recipes"
+    id = Column(String, primary_key=True, default=generate_uuid)
+    user_id = Column(String, index=True, nullable=False)
+    recipe_name = Column(String, nullable=False)
+    source_url = Column(String, nullable=False)
+    thumbnail_url = Column(String, nullable=True)
+    saved_at = Column(DateTime, default=datetime.utcnow)

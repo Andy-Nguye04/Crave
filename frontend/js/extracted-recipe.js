@@ -55,6 +55,55 @@
         });
     }
 
+    // ── Save button ────────────────────────────────────────────────
+    var saveBtn = document.getElementById("save-recipe-btn");
+    var saveIcon = document.getElementById("save-icon");
+    var saveLabel = document.getElementById("save-label");
+
+    if (saveBtn) {
+        saveBtn.addEventListener("click", function () {
+            if (saveBtn.dataset.saved) return; // already saved, ignore
+
+            saveBtn.disabled = true;
+            if (saveLabel) saveLabel.textContent = "Saving…";
+
+            var token = localStorage.getItem("crave_token");
+            fetch(base + "/api/saved", {
+                method: "POST",
+                headers: Object.assign(
+                    { "Content-Type": "application/json" },
+                    token ? { "Authorization": "Bearer " + token } : {}
+                ),
+                body: JSON.stringify({ session_id: sessionId })
+            })
+            .then(function (res) {
+                if (res.status === 409) {
+                    // Already saved — show saved state gracefully
+                    return { already: true };
+                }
+                if (!res.ok) throw new Error("Could not save recipe");
+                return res.json();
+            })
+            .then(function (data) {
+                // Show saved state briefly, then redirect to Cookbook
+                saveBtn.dataset.saved = "1";
+                if (saveIcon) {
+                    saveIcon.textContent = "bookmark";
+                    saveIcon.style.fontVariationSettings = "'FILL' 1";
+                }
+                if (saveLabel) saveLabel.textContent = data && data.already ? "Saved" : "Saved!";
+                setTimeout(function () {
+                    window.location.href = "tracker.html";
+                }, 600);
+            })
+            .catch(function (err) {
+                saveBtn.disabled = false;
+                if (saveLabel) saveLabel.textContent = "Save";
+                alert(err.message);
+            });
+        });
+    }
+
     fetch(base + "/api/recipes/" + encodeURIComponent(sessionId))
         .then(function (r) {
             return r.json().then(function (j) {
