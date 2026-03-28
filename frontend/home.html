@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Crave - Discover</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -34,47 +38,75 @@
         }
     </script>
     <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .botanical-gradient { background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%); }
-        .ai-gradient { background: linear-gradient(135deg, #b1f0ce 0%, #95d4b3 100%); }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .botanical-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+
+        .ai-gradient {
+            background: linear-gradient(135deg, #b1f0ce 0%, #95d4b3 100%);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
+
 <body class="bg-background text-on-surface font-body selection:bg-primary-fixed pb-32">
 
     <!-- Top Navigation & Search -->
-    <header class="fixed top-0 w-full z-50 bg-[#f8faf6]/80 backdrop-blur-2xl px-6 py-4 flex flex-col gap-4 border-b border-outline-variant/15">
+    <header
+        class="fixed top-0 w-full z-50 bg-[#f8faf6]/80 backdrop-blur-2xl px-6 py-4 flex flex-col gap-4 border-b border-outline-variant/15">
         <div class="flex justify-between items-center">
             <h1 class="font-headline font-black tracking-tighter text-2xl text-primary">Discover</h1>
             <div class="flex items-center gap-2">
-                <button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors relative">
+                <button
+                    class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors relative">
                     <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
                     <span class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
             </div>
         </div>
-        
+
         <!-- Search Bar -->
         <div class="relative w-full">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
-            <input type="text" placeholder="Search recipes, ingredients, or paste a video link..." 
-                   class="w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-2xl px-12 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all font-medium placeholder-on-surface-variant/50 shadow-sm text-sm" />
-            <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-surface-container p-1.5 rounded-xl text-primary hover:bg-primary hover:text-white transition-colors">
-                 <span class="material-symbols-outlined text-[18px]">mic</span>
+            <span
+                class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+            <input type="text" placeholder="Search recipes, ingredients, or paste a video link..."
+                class="w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface rounded-2xl px-12 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all font-medium placeholder-on-surface-variant/50 shadow-sm text-sm" />
+            <button
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-surface-container p-1.5 rounded-xl text-primary hover:bg-primary hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[18px]">mic</span>
             </button>
         </div>
     </header>
 
     <main class="pt-36 px-6 max-w-3xl mx-auto w-full">
-        
+
         <!-- Trending Tags / Quick Filters -->
         <section class="mb-8">
             <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-                <button class="flex-shrink-0 bg-primary text-white font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full shadow-md">For You</button>
-                <button class="flex-shrink-0 bg-surface-container-lowest border border-outline-variant/20 text-on-surface-variant font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm">High Protein</button>
-                <button class="flex-shrink-0 bg-surface-container-lowest border border-outline-variant/20 text-on-surface-variant font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm">Under 30 Min</button>
-                <button class="flex-shrink-0 bg-surface-container-lowest border border-outline-variant/20 text-on-surface-variant font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm">Viral TikToks</button>
+                <button
+                    class="flex-shrink-0 bg-primary text-white font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full shadow-md">For
+                    You</button>
+                <button
+                    class="flex-shrink-0 bg-surface-container-lowest border border-outline-variant/20 text-on-surface-variant font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm">High
+                    Protein</button>
+                <button
+                    class="flex-shrink-0 bg-surface-container-lowest border border-outline-variant/20 text-on-surface-variant font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm">Under
+                    30 Min</button>
+                <button
+                    class="flex-shrink-0 bg-surface-container-lowest border border-outline-variant/20 text-on-surface-variant font-headline text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm">Viral
+                    TikToks</button>
             </div>
         </section>
 
@@ -82,59 +114,80 @@
         <section class="mb-10">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="font-headline font-extrabold text-xl tracking-tight text-on-surface">Trending on Social</h2>
-                <a href="#" class="text-xs font-bold uppercase tracking-widest text-primary hover:underline">View All</a>
+                <a href="#" class="text-xs font-bold uppercase tracking-widest text-primary hover:underline">View
+                    All</a>
             </div>
-            
+
             <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-6 snap-x snap-mandatory">
-                
+
                 <!-- Reel Card 1 -->
-                <div class="flex-shrink-0 w-64 h-96 relative rounded-[2rem] overflow-hidden group snap-center shadow-xl cursor-pointer">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY" 
-                         alt="TikTok Pasta" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
-                    
+                <div
+                    class="flex-shrink-0 w-64 h-96 relative rounded-[2rem] overflow-hidden group snap-center shadow-xl cursor-pointer">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY"
+                        alt="TikTok Pasta"
+                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+
                     <!-- Top Overlay (Play count etc) -->
                     <div class="absolute top-4 left-4 right-4 flex justify-between z-10">
-                        <div class="bg-black/40 backdrop-blur-md rounded-full px-2.5 py-1 text-white text-[10px] font-bold flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span> 2.4M
+                        <div
+                            class="bg-black/40 backdrop-blur-md rounded-full px-2.5 py-1 text-white text-[10px] font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[12px]"
+                                style="font-variation-settings: 'FILL' 1;">play_arrow</span> 2.4M
                         </div>
-                        <div class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-pointer hover:bg-white/40 border border-white/20">
-                            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+                        <div
+                            class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-pointer hover:bg-white/40 border border-white/20">
+                            <span class="material-symbols-outlined text-sm"
+                                style="font-variation-settings: 'FILL' 1;">bookmark</span>
                         </div>
                     </div>
 
                     <!-- Bottom Info Overlay -->
-                    <div class="absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10">
-                        <h3 class="text-white font-headline font-bold text-lg leading-tight mb-2">Creamy Gigi Hadid Pasta</h3>
+                    <div
+                        class="absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10">
+                        <h3 class="text-white font-headline font-bold text-lg leading-tight mb-2">Creamy Gigi Hadid
+                            Pasta</h3>
                         <div class="flex items-center gap-2 mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Chef&background=random" class="w-5 h-5 rounded-full border border-white/50" alt="Creator">
+                            <img src="https://ui-avatars.com/api/?name=Chef&background=random"
+                                class="w-5 h-5 rounded-full border border-white/50" alt="Creator">
                             <span class="text-white/90 text-xs font-medium">@foodie_chef</span>
                         </div>
-                        <button class="w-full ai-gradient text-primary font-headline font-bold text-xs uppercase tracking-widest py-2.5 rounded-xl shadow-lg flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                            <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        <button
+                            class="w-full ai-gradient text-primary font-headline font-bold text-xs uppercase tracking-widest py-2.5 rounded-xl shadow-lg flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                            <span class="material-symbols-outlined text-[16px]"
+                                style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
                             Extract Recipe
                         </button>
                     </div>
                 </div>
 
                 <!-- Reel Card 2 -->
-                <div class="flex-shrink-0 w-64 h-96 relative rounded-[2rem] overflow-hidden group snap-center shadow-xl cursor-pointer">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeAHcBpcyw9uOOsNX56oVFPKhmC-Kp6scitw92v0NU3XVr8ITgvC9TbUhbBfq70nBxrXoXaiMgggA8NuOUdErvKgBDkILjul9PakNKAku7lNCpLbO9NILAJsX_VHtsDbSTBjCVjXJVoVLLN-Kk0S2t4J7PPToj7up150B4QqwG0UxtdAAetMvGcP0NK6XRUTTxUBeBZDDMCiWWm8hUisqVqff-trsYPdVgny5RZ2ekAJReiGeJoxRLFzOJhRa5vHcixBB3muJHFms" 
-                         alt="Salad Bowl" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
+                <div
+                    class="flex-shrink-0 w-64 h-96 relative rounded-[2rem] overflow-hidden group snap-center shadow-xl cursor-pointer">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeAHcBpcyw9uOOsNX56oVFPKhmC-Kp6scitw92v0NU3XVr8ITgvC9TbUhbBfq70nBxrXoXaiMgggA8NuOUdErvKgBDkILjul9PakNKAku7lNCpLbO9NILAJsX_VHtsDbSTBjCVjXJVoVLLN-Kk0S2t4J7PPToj7up150B4QqwG0UxtdAAetMvGcP0NK6XRUTTxUBeBZDDMCiWWm8hUisqVqff-trsYPdVgny5RZ2ekAJReiGeJoxRLFzOJhRa5vHcixBB3muJHFms"
+                        alt="Salad Bowl"
+                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                     <div class="absolute top-4 left-4 right-4 flex justify-between z-10">
-                        <div class="bg-black/40 backdrop-blur-md rounded-full px-2.5 py-1 text-white text-[10px] font-bold flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span> 890K
+                        <div
+                            class="bg-black/40 backdrop-blur-md rounded-full px-2.5 py-1 text-white text-[10px] font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[12px]"
+                                style="font-variation-settings: 'FILL' 1;">play_arrow</span> 890K
                         </div>
-                        <div class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-pointer hover:bg-white/40 border border-white/20">
+                        <div
+                            class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-pointer hover:bg-white/40 border border-white/20">
                             <span class="material-symbols-outlined text-sm">bookmark</span>
                         </div>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10">
-                        <h3 class="text-white font-headline font-bold text-lg leading-tight mb-2">Chopped Mediterranean Salad</h3>
+                    <div
+                        class="absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10">
+                        <h3 class="text-white font-headline font-bold text-lg leading-tight mb-2">Chopped Mediterranean
+                            Salad</h3>
                         <div class="flex items-center gap-2 mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Healthy+Eats&background=random" class="w-5 h-5 rounded-full border border-white/50" alt="Creator">
+                            <img src="https://ui-avatars.com/api/?name=Healthy+Eats&background=random"
+                                class="w-5 h-5 rounded-full border border-white/50" alt="Creator">
                             <span class="text-white/90 text-xs font-medium">@healthyeats</span>
                         </div>
-                        <button class="w-full bg-white/20 backdrop-blur-md border border-white/30 text-white font-headline font-bold text-xs uppercase tracking-widest py-2.5 rounded-xl shadow-lg flex items-center justify-center gap-1.5 hover:bg-white/30 transition-all">
+                        <button
+                            class="w-full bg-white/20 backdrop-blur-md border border-white/30 text-white font-headline font-bold text-xs uppercase tracking-widest py-2.5 rounded-xl shadow-lg flex items-center justify-center gap-1.5 hover:bg-white/30 transition-all">
                             View Extracted
                         </button>
                     </div>
@@ -144,19 +197,24 @@
 
         <!-- Smart Pantry Suggestions -->
         <section class="mb-6">
-            <h2 class="font-headline font-extrabold text-xl tracking-tight text-on-surface mb-4 flex items-center gap-2">
+            <h2
+                class="font-headline font-extrabold text-xl tracking-tight text-on-surface mb-4 flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">kitchen</span>
                 Based on your Pantry
             </h2>
-            
-            <div class="bg-surface-container-lowest rounded-[2rem] p-5 shadow-sm border border-outline-variant/10 flex items-center gap-4 cursor-pointer hover:shadow-md transition-shadow">
+
+            <div
+                class="bg-surface-container-lowest rounded-[2rem] p-5 shadow-sm border border-outline-variant/10 flex items-center gap-4 cursor-pointer hover:shadow-md transition-shadow">
                 <div class="w-24 h-24 rounded-2xl overflow-hidden shadow-inner flex-shrink-0">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLB88bZgyuESLtnKOHnrKSbLW6EeT_vZJVl_58HKH0NWOI1e1usjHLLm4roQ3cZ_3gC9ug50z00lubR7Ml8c32olWoNwc-rP9NTWPPFdRKun9jI8rxR9LtodinVQSeylNqI9O2bMZUdUeQEKT_itB_Eafw68XwA7m4JMsyjUzKlxzC59pE5Lb22B_wNjSFrX4CkUcnW-afqH803pP261vItAniPh0uZ56PucLB4zoFdrrljt09rNxloPz7JTWBY0I-JHCviFG4zbk" 
-                         class="w-full h-full object-cover" alt="Pizza">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLB88bZgyuESLtnKOHnrKSbLW6EeT_vZJVl_58HKH0NWOI1e1usjHLLm4roQ3cZ_3gC9ug50z00lubR7Ml8c32olWoNwc-rP9NTWPPFdRKun9jI8rxR9LtodinVQSeylNqI9O2bMZUdUeQEKT_itB_Eafw68XwA7m4JMsyjUzKlxzC59pE5Lb22B_wNjSFrX4CkUcnW-afqH803pP261vItAniPh0uZ56PucLB4zoFdrrljt09rNxloPz7JTWBY0I-JHCviFG4zbk"
+                        class="w-full h-full object-cover" alt="Pizza">
                 </div>
                 <div>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#0f5238] bg-[#b1f0ce]/30 px-2 py-0.5 rounded-sm mb-2 inline-block">Uses your expiring Tomatoes</span>
-                    <h3 class="font-headline font-bold text-[16px] leading-tight mb-1 text-on-surface">15-Min Skillet Flatbread Pizza</h3>
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-widest text-[#0f5238] bg-[#b1f0ce]/30 px-2 py-0.5 rounded-sm mb-2 inline-block">Uses
+                        your expiring Tomatoes</span>
+                    <h3 class="font-headline font-bold text-[16px] leading-tight mb-1 text-on-surface">15-Min Skillet
+                        Flatbread Pizza</h3>
                     <p class="text-xs text-on-surface-variant font-medium flex items-center gap-1">
                         <span class="material-symbols-outlined text-[14px]">timer</span> 15 mins • Easy
                     </p>
@@ -167,31 +225,37 @@
     </main>
 
     <!-- Floating AI Action Button (Import) -->
-    <button class="fixed right-6 bottom-28 w-14 h-14 bg-[#191c1a] rounded-full text-[#b1f0ce] shadow-2xl shadow-black/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+    <button
+        class="fixed right-6 bottom-28 w-14 h-14 bg-[#191c1a] rounded-full text-[#b1f0ce] shadow-2xl shadow-black/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
         <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
     </button>
 
     <!-- BottomNavBar -->
-    <nav class="fixed bottom-0 left-0 w-full flex justify-around items-end px-4 pb-6 pt-3 bg-[#f8faf6]/90 backdrop-blur-2xl z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.04)] rounded-t-[24px]">
+    <nav
+        class="fixed bottom-0 left-0 w-full flex justify-around items-end px-4 pb-6 pt-3 bg-[#f8faf6]/90 backdrop-blur-2xl z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.04)] rounded-t-[24px]">
         <!-- Active Discover Tab -->
         <a class="flex flex-col items-center justify-center text-primary p-2 transition-colors relative" href="#">
             <div class="absolute -top-1 w-8 h-1 bg-primary rounded-full"></div>
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
             <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Discover</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="import.html">
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="import.html">
             <span class="material-symbols-outlined">add_circle</span>
             <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Import</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="tracker.html">
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="tracker.html">
             <span class="material-symbols-outlined">dataset</span>
-            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Tracker</span>
+            <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Cookbook</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors" href="profile.html">
+        <a class="flex flex-col items-center justify-center text-[#404943] p-2 hover:text-primary transition-colors"
+            href="profile.html">
             <span class="material-symbols-outlined">person</span>
             <span class="font-headline text-[9px] font-bold uppercase tracking-widest mt-1">Profile</span>
         </a>
     </nav>
 
 </body>
+
 </html>

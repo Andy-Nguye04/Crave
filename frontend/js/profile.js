@@ -3,10 +3,9 @@
  * Handles fetching, auto-saving dietary info, and token auth.
  */
 
-const token = localStorage.getItem('crave_token');
-if (!token) {
-    window.location.href = 'index.html';
-}
+// Always force the demo token so stale tokens never block access
+localStorage.setItem('crave_token', 'crave-demo-token-hackathon');
+const token = 'crave-demo-token-hackathon';
 
 function getApiBase() {
     return localStorage.getItem('CRAVE_API_BASE') || 'http://127.0.0.1:8000';
@@ -23,8 +22,9 @@ async function fetchProfile() {
         });
 
         if (response.status === 401) {
-            localStorage.removeItem('crave_token');
-            window.location.href = 'index.html';
+            // Re-set demo token and retry
+            localStorage.setItem('crave_token', 'crave-demo-token-hackathon');
+            window.location.reload();
             return;
         }
 
@@ -139,12 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Attach logout
+    // Hide logout in demo mode
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('crave_token');
-            window.location.href = 'index.html';
-        });
+        logoutBtn.style.display = 'none';
     }
 });

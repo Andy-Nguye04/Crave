@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -103,13 +104,34 @@
     <header
         class="fixed top-0 w-full z-40 glass-panel px-6 py-4 flex justify-between items-center border-b border-outline-variant/15">
         <h1 class="font-headline font-black tracking-tighter text-2xl text-primary flex items-center gap-2">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
             Import
         </h1>
-        <button
-            class="bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-colors relative">
-            <span class="material-symbols-outlined">help</span>
-        </button>
+        <div class="relative">
+            <button id="helpBtn"
+                class="bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-colors relative"
+                onclick="document.getElementById('helpPopup').classList.toggle('hidden')">
+                <span class="material-symbols-outlined">help</span>
+            </button>
+
+            <!-- Help Popup -->
+            <div id="helpPopup"
+                class="hidden absolute top-12 right-0 w-64 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-4 shadow-2xl z-50 text-sm">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-headline font-extrabold text-on-surface text-[15px]">How to Import</h3>
+                    <button
+                        class="text-on-surface-variant hover:text-on-surface p-1 bg-surface-container rounded-full flex items-center justify-center transition-colors"
+                        onclick="document.getElementById('helpPopup').classList.add('hidden')">
+                        <span class="material-symbols-outlined text-[14px]">close</span>
+                    </button>
+                </div>
+                <ol class="list-decimal list-outside ml-4 text-on-surface-variant space-y-2 font-medium text-xs">
+                    <li>Open <span class="font-bold text-[#FF0000]">YouTube</span></li>
+                    <li>Find any recipe that you like</li>
+                    <li>Tap <b>Share</b> and copy the link</li>
+                    <li>Paste the link below to start your cooking journey!</li>
+                </ol>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content Container -->
@@ -152,8 +174,10 @@
                         style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
                     Start Prep
                 </button>
-                <label class="flex items-center justify-center gap-2 text-xs text-on-surface-variant mt-4 cursor-pointer">
-                    <input id="dry-run" type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary" />
+                <label
+                    class="flex items-center justify-center gap-2 text-xs text-on-surface-variant mt-4 cursor-pointer">
+                    <input id="dry-run" type="checkbox"
+                        class="rounded border-outline-variant text-primary focus:ring-primary" />
                     <span>Dry run (demo recipe, no Gemini — no API key)</span>
                 </label>
                 <p id="import-status" class="text-sm mt-3 text-center min-h-[1.25rem]" aria-live="polite"></p>
@@ -223,4 +247,5 @@
     <script src="js/api-base.js"></script>
     <script src="js/import.js"></script>
 </body>
+
 </html>

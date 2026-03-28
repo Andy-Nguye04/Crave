@@ -47,9 +47,14 @@
     }
 
     function postParse(url, dryRun) {
+        var headers = { "Content-Type": "application/json" };
+        var token = localStorage.getItem("crave_token");
+        if (token) {
+            headers["Authorization"] = "Bearer " + token;
+        }
         return fetch(apiOrigin() + "/api/parse-youtube", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: headers,
             body: JSON.stringify({
                 youtube_url: url.trim(),
                 dry_run: !!dryRun,

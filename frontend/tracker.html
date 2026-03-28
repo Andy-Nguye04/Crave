@@ -74,10 +74,6 @@
     <header
         class="fixed top-0 w-full z-50 bg-[#f8faf6]/80 backdrop-blur-2xl px-6 py-4 flex justify-between items-center border-b border-outline-variant/15">
         <div class="flex items-center gap-4">
-            <button
-                class="text-primary hover:bg-surface-container-high p-2 rounded-full transition-transform active:scale-90">
-                <span class="material-symbols-outlined" data-icon="menu">menu</span>
-            </button>
             <h1 class="font-headline font-black tracking-tighter text-2xl text-primary">Cookbook</h1>
         </div>
         <div class="flex items-center gap-2 bg-surface-container-high px-4 py-1.5 rounded-full">
@@ -118,95 +114,33 @@
         <!-- Tracker Header -->
         <section class="flex justify-between items-end mb-6">
             <div>
-                <span class="text-primary font-bold tracking-widest uppercase text-[10px] block mb-1">Ranked
+                <span id="tracker-eyebrow"
+                    class="text-primary font-bold tracking-widest uppercase text-[10px] block mb-1">Ranked
                     Mastery</span>
-                <h3 class="font-headline text-3xl font-extrabold tracking-tight">Your Top Recipes</h3>
+                <h3 id="tracker-heading" class="font-headline text-3xl font-extrabold tracking-tight">Your Top Recipes
+                </h3>
             </div>
             <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg">
-                <button
-                    class="px-4 py-1.5 rounded-md bg-surface-container-lowest shadow-sm text-xs font-bold text-on-surface transition-all">Ranked</button>
-                <button
-                    class="px-4 py-1.5 rounded-md text-on-surface-variant text-xs font-bold hover:bg-surface-container-high transition-all">Recent</button>
+                <button id="tab-cooked"
+                    class="px-4 py-1.5 rounded-md bg-surface-container-lowest shadow-sm text-xs font-bold text-on-surface transition-all">Cooked</button>
+                <button id="tab-saved"
+                    class="px-4 py-1.5 rounded-md text-on-surface-variant text-xs font-bold hover:bg-surface-container-high transition-all">Saved</button>
             </div>
         </section>
 
         <!-- Ranked Recipe List (Beli-style list tracking) -->
-        <section class="space-y-4">
-            <!-- Rank 1 Card -->
-            <div
-                class="group relative flex bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-outline-variant/10 cursor-pointer p-4 gap-4 items-center">
-                <!-- Rank Badge -->
-                <div class="w-10 flex flex-col items-center justify-center font-headline">
-                    <span class="text-xl font-black text-primary">#1</span>
-                    <span class="text-[10px] text-on-surface-variant font-bold mt-1">9.8</span>
-                </div>
-
-                <!-- Image thumbnail -->
-                <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwrXSX9Sq5V6QQzdjkppTqQj76Csj5hQUTKUP-PWH3eAnICExp64xl8zvmkjR2D7zSdE8W_P2ZXlgH9KSU4UrJrkKBTuPjlvhmSKZj6j3o6dhIE8BlQCX8U8rzbMdWKueX0ApwpElYqwCuLBKQ4sBPfwq0YUzvxc8UVITO4hUWgxjdjk2m9fZt4evJgOaD7OYGet3i-2NHHgjwFI5ly1SprRNIlELezXDNau4_Or21z7BWrFfA-yGRt5I9NwqoY2QXkNvso5oDuY"
-                        alt="Pasta"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-
-                <!-- Info -->
-                <div class="flex-grow">
-                    <h4 class="font-headline font-bold text-lg leading-tight mb-1">Wild Basil Pappardelle</h4>
-                    <p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">
-                        <span class="material-symbols-outlined text-[14px]">psychology</span> AI Tweaked: Extra garlic
-                    </p>
-                </div>
-            </div>
-
-            <!-- Rank 2 Card -->
-            <div
-                class="group relative flex bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-outline-variant/10 cursor-pointer p-4 gap-4 items-center">
-                <div class="w-10 flex flex-col items-center justify-center font-headline">
-                    <span class="text-xl font-black text-on-surface-variant">#2</span>
-                    <span class="text-[10px] text-on-surface-variant font-bold mt-1">9.4</span>
-                </div>
-
-                <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeAHcBpcyw9uOOsNX56oVFPKhmC-Kp6scitw92v0NU3XVr8ITgvC9TbUhbBfq70nBxrXoXaiMgggA8NuOUdErvKgBDkILjul9PakNKAku7lNCpLbO9NILAJsX_VHtsDbSTBjCVjXJVoVLLN-Kk0S2t4J7PPToj7up150B4QqwG0UxtdAAetMvGcP0NK6XRUTTxUBeBZDDMCiWWm8hUisqVqff-trsYPdVgny5RZ2ekAJReiGeJoxRLFzOJhRa5vHcixBB3muJHFms"
-                        alt="Salad Bowl"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-
-                <div class="flex-grow">
-                    <h4 class="font-headline font-bold text-lg leading-tight mb-1">Mediterranean Salmon Bowl</h4>
-                    <p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">
-                        <span class="material-symbols-outlined text-[14px]">psychology</span> AI Tweaked: Quinoa sub
-                    </p>
-                </div>
-            </div>
-
-            <!-- Rank 3 Card -->
-            <div
-                class="group relative flex bg-surface-container-lowest rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-outline-variant/10 cursor-pointer p-4 gap-4 items-center">
-                <div class="w-10 flex flex-col items-center justify-center font-headline">
-                    <span class="text-xl font-black text-on-surface-variant">#3</span>
-                    <span class="text-[10px] text-on-surface-variant font-bold mt-1">8.9</span>
-                </div>
-
-                <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLB88bZgyuESLtnKOHnrKSbLW6EeT_vZJVl_58HKH0NWOI1e1usjHLLm4roQ3cZ_3gC9ug50z00lubR7Ml8c32olWoNwc-rP9NTWPPFdRKun9jI8rxR9LtodinVQSeylNqI9O2bMZUdUeQEKT_itB_Eafw68XwA7m4JMsyjUzKlxzC59pE5Lb22B_wNjSFrX4CkUcnW-afqH803pP261vItAniPh0uZ56PucLB4zoFdrrljt09rNxloPz7JTWBY0I-JHCviFG4zbk"
-                        alt="Pizza"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-
-                <div class="flex-grow">
-                    <h4 class="font-headline font-bold text-lg leading-tight mb-1">Stone-Fired Pizza (TikTok)</h4>
-                    <p class="text-xs text-on-surface-variant font-medium flex gap-2 items-center">
-                        <span class="material-symbols-outlined text-[14px]">thumb_up</span> You loved the crunch
-                    </p>
-                </div>
+        <section id="tracker-history-list" class="space-y-4">
+            <div class="text-center py-10">
+                <span class="material-symbols-outlined text-4xl text-outline-variant mb-2">menu_book</span>
+                <p class="text-on-surface-variant font-medium text-sm">Loading your culinary history...</p>
             </div>
         </section>
 
         <!-- Action FAB -->
-        <button
+        <a href="import.html"
             class="fixed right-6 bottom-28 w-14 h-14 botanical-gradient rounded-full text-white shadow-xl shadow-primary/30 flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
             <span class="material-symbols-outlined" data-icon="add">add</span>
-        </button>
+        </a>
 
     </main>
 
@@ -237,6 +171,8 @@
         </a>
     </nav>
 
+    <script src="js/api-base.js"></script>
+    <script src="js/tracker.js"></script>
 </body>
 
 </html>

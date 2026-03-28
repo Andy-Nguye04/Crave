@@ -12,6 +12,7 @@
     var teaserEl = document.getElementById("finish-recipe-teaser");
     var platingEl = document.getElementById("finish-plating-text");
     var backCookingBtn = document.getElementById("finish-back-cooking");
+    var logTrackerBtn = document.getElementById("log-tracker-btn");
 
     function cookingHref() {
         return sessionId
@@ -32,6 +33,55 @@
                 "Open this page after cooking with a session link to see your recipe name here.";
         }
         return;
+    }
+
+    // Set up tags toggling
+    var tags = [];
+    document.querySelectorAll(".flex-wrap button").forEach(function(btn) {
+        if (btn.textContent.includes("Add Note")) return;
+        btn.addEventListener("click", function() {
+            btn.classList.toggle("bg-primary");
+            btn.classList.toggle("text-white");
+            btn.classList.toggle("border-primary");
+        });
+    });
+
+    if (logTrackerBtn) {
+        logTrackerBtn.addEventListener("click", function () {
+            var originalHtml = logTrackerBtn.innerHTML;
+            logTrackerBtn.innerHTML = "Logging...";
+            logTrackerBtn.disabled = true;
+
+            var ratingInput = document.querySelector('input[name="rate"]:checked');
+            var rating = ratingInput ? parseInt(ratingInput.value, 10) : 5; // Default to 5
+
+            var activeTags = [];
+            document.querySelectorAll(".flex-wrap button.bg-primary").forEach(function(b) {
+                var text = b.textContent.trim();
+                if (text && !text.includes("Add Note")) activeTags.push(text);
+            });
+
+            var token = localStorage.getItem("crave_token");
+            fetch(base + "/api/history", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(token ? { "Authorization": "Bearer " + token } : {})
+                },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    rating: rating,
+                    tags: activeTags
+                })
+            }).then(function(res) {
+                if (!res.ok) throw new Error("Failed to log history");
+                window.location.href = "tracker.html";
+            }).catch(function(err) {
+                alert(err.message);
+                logTrackerBtn.innerHTML = originalHtml;
+                logTrackerBtn.disabled = false;
+            });
+        });
     }
 
     fetch(base + "/api/recipes/" + encodeURIComponent(sessionId))
