@@ -115,17 +115,30 @@
     <header class="fixed top-0 w-full z-50 glass-panel border-b border-outline-variant/10">
         <!-- Progress Bar at the very top -->
         <div class="h-1.5 w-full bg-surface-container-high">
+<<<<<<< HEAD
             <div class="h-full botanical-gradient w-3/8 transition-all duration-500 ease-out rounded-r-full" style="width: 37.5%"></div>
+=======
+            <div id="crave-progress" class="h-full botanical-gradient transition-all duration-500 ease-out rounded-r-full" style="width: 0%"></div>
+>>>>>>> origin/benny
         </div>
 
         <div class="flex justify-between items-center px-6 py-4">
             <div class="flex items-center gap-4">
+<<<<<<< HEAD
                 <button class="text-[#0f5238] bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-transform active:scale-90">
                     <span class="material-symbols-outlined font-bold" data-icon="close">close</span>
                 </button>
                 <div>
                     <span class="text-[10px] font-bold uppercase tracking-widest text-[#0f5238] block leading-none mb-1">Hand-Pulled Garden Pesto Pappardelle</span>
                     <h1 class="font-headline font-bold tracking-tight text-xl text-on-surface leading-none">Step 3 of 8</h1>
+=======
+                <button id="crave-close" type="button" class="text-[#0f5238] bg-surface-container hover:bg-surface-container-high p-2 rounded-full transition-transform active:scale-90">
+                    <span class="material-symbols-outlined font-bold" data-icon="close">close</span>
+                </button>
+                <div>
+                    <span id="crave-recipe-title" class="text-[10px] font-bold uppercase tracking-widest text-[#0f5238] block leading-none mb-1 truncate max-w-[200px] sm:max-w-xs">Loading…</span>
+                    <h1 id="crave-step-label" class="font-headline font-bold tracking-tight text-xl text-on-surface leading-none">Step —</h1>
+>>>>>>> origin/benny
                 </div>
             </div>
             
@@ -144,6 +157,11 @@
 
     <main class="flex-grow pt-24 pb-36 px-6 max-w-2xl mx-auto w-full flex flex-col relative">
 
+<<<<<<< HEAD
+=======
+        <div id="crave-timer-banner" class="hidden mb-4 rounded-2xl bg-primary-container text-on-primary-container text-center py-3 text-sm font-bold" role="status"></div>
+
+>>>>>>> origin/benny
         <!-- AI Generated Video Instruction -->
         <section class="mb-8 w-full mt-2">
             <div class="relative aspect-video w-full rounded-[2rem] overflow-hidden shadow-xl bg-surface-container-highest group">
@@ -168,6 +186,7 @@
 
         <!-- Current Step Details & Ingredients needed -->
         <section class="flex-grow flex flex-col justify-center mb-8">
+<<<<<<< HEAD
             <h2 class="font-headline text-3xl md:text-4xl font-extrabold tracking-tight text-on-surface mb-6 leading-tight">
                 Create the pesto emulsion block slowly.
             </h2>
@@ -194,6 +213,19 @@
                             <span class="text-xs text-on-surface-variant">From Step 2</span>
                         </div>
                     </div>
+=======
+            <h2 id="crave-instruction" class="font-headline text-3xl md:text-4xl font-extrabold tracking-tight text-on-surface mb-6 leading-tight">
+                …
+            </h2>
+            
+            <p id="crave-detail" class="text-on-surface-variant text-lg leading-relaxed mb-8">
+            </p>
+
+            <!-- Ingredients for this recipe -->
+            <div class="bg-surface-container-low p-5 rounded-2xl">
+                <h3 class="font-headline text-xs font-bold uppercase tracking-widest text-[#0f5238] mb-4">Ingredients</h3>
+                <div id="crave-ingredients-row" class="flex gap-4 overflow-x-auto hide-scrollbar">
+>>>>>>> origin/benny
                 </div>
             </div>
         </section>
@@ -202,12 +234,20 @@
 
     <!-- Seamless Navigation Overlay (Tracker style steps) -->
     <div class="fixed top-1/2 -right-6 -translate-y-1/2 z-40 flex flex-col gap-2">
+<<<<<<< HEAD
         <button class="w-12 h-20 bg-surface-container-high rounded-l-2xl shadow-lg border-y border-l border-outline-variant/20 flex flex-col justify-center items-start pl-2 hover:w-14 transition-all">
+=======
+        <button id="crave-step-next" type="button" class="w-12 h-20 bg-surface-container-high rounded-l-2xl shadow-lg border-y border-l border-outline-variant/20 flex flex-col justify-center items-start pl-2 hover:w-14 transition-all">
+>>>>>>> origin/benny
              <span class="material-symbols-outlined text-on-surface-variant">navigate_next</span>
         </button>
     </div>
     <div class="fixed top-1/2 -left-6 -translate-y-1/2 z-40 flex flex-col gap-2">
+<<<<<<< HEAD
         <button class="w-12 h-20 bg-surface-container-high rounded-r-2xl shadow-lg border-y border-r border-outline-variant/20 flex flex-col justify-center items-end pr-2 hover:w-14 transition-all opacity-50">
+=======
+        <button id="crave-step-prev" type="button" class="w-12 h-20 bg-surface-container-high rounded-r-2xl shadow-lg border-y border-r border-outline-variant/20 flex flex-col justify-center items-end pr-2 hover:w-14 transition-all">
+>>>>>>> origin/benny
              <span class="material-symbols-outlined text-on-surface-variant">navigate_before</span>
         </button>
     </div>
@@ -221,12 +261,24 @@
             
             <!-- Contextual Agent Prompts -->
             <div class="w-full mb-6">
+<<<<<<< HEAD
                 <div class="flex gap-2 justify-center overflow-x-auto hide-scrollbar px-2">
                     <button class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
                         "Set 5 min timer"
                     </button>
                     <button class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
                         "What is emulsify?"
+=======
+                <div id="crave-prompt-bar" class="flex gap-2 justify-center overflow-x-auto hide-scrollbar px-2">
+                    <button type="button" data-prompt="Set a 5 minute kitchen timer." class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
+                        Set 5 min timer
+                    </button>
+                    <button type="button" data-prompt="What does emulsify mean in simple terms?" class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
+                        What is emulsify?
+                    </button>
+                    <button type="button" data-prompt="What should I focus on for this step?" class="flex-shrink-0 glass-panel border border-[#b1f0ce]/40 text-[#0f5238] font-semibold text-sm py-2 px-5 rounded-full shadow-sm hover:scale-105 transition-transform">
+                        Coach me on this step
+>>>>>>> origin/benny
                     </button>
                 </div>
             </div>
@@ -249,19 +301,35 @@
                     <!-- Agent Context Message -->
                     <div class="flex flex-col h-full justify-center min-w-0">
                         <span class="text-[#b1f0ce] text-[10px] font-bold uppercase tracking-widest block font-headline">Crave Chef AI</span>
+<<<<<<< HEAD
                         <p class="font-medium text-sm truncate opacity-90 inline-flex">
                             Listening... Hands messy? Just ask.
                         </p>
+=======
+                        <p id="crave-chef-status" class="font-medium text-sm truncate opacity-90 inline-flex">
+                            Listening… Hands messy? Just ask.
+                        </p>
+                        <span id="crave-ws-status" class="text-[10px] text-white/50 truncate max-w-[200px]"></span>
+>>>>>>> origin/benny
                     </div>
                 </div>
 
                 <!-- Next Button Action inside the pill -->
+<<<<<<< HEAD
                 <button class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform">
+=======
+                <button id="crave-fast-forward" type="button" class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform">
+>>>>>>> origin/benny
                     <span class="material-symbols-outlined" data-icon="fast_forward" style="font-variation-settings: 'FILL' 1;">fast_forward</span>
                 </button>
             </div>
         </div>
     </div>
 
+<<<<<<< HEAD
+=======
+    <script src="js/api-base.js"></script>
+    <script src="js/cooking-mode.js"></script>
+>>>>>>> origin/benny
 </body>
 </html>
