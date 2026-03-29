@@ -16,15 +16,15 @@ Crave is an AI-native **web application** that transforms social media cooking c
 
 ## 2. Tech Stack
 
-| Component          | Technology                                      |
-|--------------------|-------------------------------------------------|
-| Platform           | Web (HTML + Vanilla CSS + JavaScript)           |
-| Styling            | Tailwind CSS (CDN)                              |
-| Backend            | Python (FastAPI + WebSockets + Uvicorn)         |
-| AI Parsing Engine  | Google Gemini 1.5 Flash (JSON Mode)             |
-| AI Cooking Mode    | Google Gemini Live API (WebSocket streaming)    |
-| Database           | SQLite via SQLAlchemy ORM (local `crave.db`)    |
-| Auth               | Email/password with UUID session tokens (Bearer)|
+| Component          | Technology                                                        |
+|--------------------|-------------------------------------------------------------------|
+| Platform           | Web (HTML + Vanilla CSS + JavaScript)                             |
+| Styling            | Tailwind CSS (CDN)                                                |
+| Backend            | Python (FastAPI + WebSockets + Uvicorn)                           |
+| AI Parsing Engine  | Google Gemini 2.5 Flash (JSON Mode)                               |
+| AI Cooking Mode    | Google Gemini Live API — `gemini-3.1-flash-live-preview` (audio) |
+| Database           | SQLite via SQLAlchemy ORM (local `crave.db`)                      |
+| Auth               | Demo auto-login (fixed token); email/password retained in backend |
 
 > **Future Migration Path:** The SQLAlchemy ORM is designed to be pointed at a Supabase (PostgreSQL) connection string with minimal code changes for production deployment.
 
@@ -45,18 +45,19 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
 
 | Page                       | Description |
 |----------------------------|-------------|
-| `index.html`               | Sign in page (email/password). |
-| `signup.html`              | Registration page. |
+| `index.html`               | Landing page — auto-redirects to `home.html` in demo mode (no login required). |
+| `signup.html`              | Registration page — bypassed in demo mode. |
 | `extracted-recipe.html`    | Recipe prep screen — shows parsed ingredients, dietary flags, and AI-suggested swaps before cooking starts. Back button returns to `import.html` by default, or `tracker.html` if the `from=tracker` query param is present. |
-| `cooking-mode.html`        | The live cooking experience — step-by-step with real-time Gemini WebSocket assistant. |
+| `cooking-mode.html`        | The live cooking experience — step-by-step with real-time Gemini Live WebSocket assistant (audio + transcription). |
 | `cooking-mode-finish.html` | Post-cook celebration screen with star rating, quick tags, and "Log to Tracker" CTA. |
 
 ---
 
 ## 4. User Flow
 
-1. **Sign Up / Sign In** (`index.html` → `signup.html`)
-   - Email + password auth. Token stored in `localStorage` as `crave_token`.
+1. **Auto-Login** (`index.html` → `home.html`)
+   - In demo mode, `auth.js` force-sets the fixed demo token (`crave-demo-token-hackathon`) in `localStorage` and immediately redirects to `home.html`. No login screen is shown.
+   - The backend guarantees a `demo@crave.app` user and the matching session token exist at startup via `ensure_demo_user()`.
 
 2. **Set Profile** (`profile.html`)
    - Toggle dietary restrictions (Vegan, Gluten-Free, Nut-Free, Dairy-Free).
@@ -80,8 +81,15 @@ The app uses a persistent 4-tab bottom navigation bar across all screens.
 
 5. **Cooking Mode** (`cooking-mode.html`)
    - Step-by-step walkthrough of the recipe.
-   - Real-time WebSocket connection to Gemini acting as a live sous-chef.
-   - User can ask questions, request repeats, or skip steps.
+   - Real-time WebSocket connection to Gemini Live (`gemini-3.1-flash-live-preview`) acting as a live sous-chef.
+   - Gemini responds with **audio** (base64 PCM streamed to the browser) plus a text transcription.
+   - The sous-chef can call four tools via function calling:
+     - `get_step_details(step_number)` — fetches full instruction and visual cues for a step
+     - `get_ingredient_info(item_name)` — returns measurements, dietary flags, and substitution hints
+     - `set_kitchen_timer(duration_seconds)` — triggers a countdown timer in the UI
+     - `navigate_recipe_step(direction)` — advances or goes back one step on-screen
+   - Each user message is augmented with the current UI step context (`step_number`, `ui_step_index`, `total_steps`) so the model always knows where the user is in the recipe.
+   - User can ask questions, request repeats, or advance/go back steps by voice or text.
 
 6. **Finish & Log** (`cooking-mode-finish.html`)
    - Confetti celebration, plating suggestion from the AI.
@@ -114,7 +122,7 @@ All protected endpoints require `Authorization: Bearer <token>` header.
 | GET    | `/api/saved`          | Yes  | Fetch user's saved/bookmarked recipes (newest first). |
 | POST   | `/api/saved`          | Yes  | Save a recipe from a session. De-duplicates by URL per user (409 if already saved). |
 | DELETE | `/api/saved/{id}`     | Yes  | Remove a saved recipe (unsave). |
-| WS     | `/ws/cook/{id}`       | No   | WebSocket for live Gemini cooking assistant. |
+| WS     | `/ws/cooking/{id}`    | No   | WebSocket for live Gemini cooking assistant (audio + transcription + function calling). |
 
 ---
 
@@ -170,12 +178,19 @@ User dietary context: Vegan. Nut-free. Allergies: Shellfish, Gluten.
 Flag any conflicting ingredients with dietary_conflict=true and provide a suggested_substitute.
 ```
 
-### Gemini Cooking Persona (WebSocket)
+### Gemini Live Cooking Persona (WebSocket)
+
+The system prompt is dynamically built per session and includes the recipe name, source URL, dietary summary, ingredient preview (up to 12 items), and total step count. Core persona:
+
 ```
 You are the Crave Sous-Chef. You are helping a user cook a specific recipe parsed
 from a video. Be concise, encouraging, and wait for user confirmation before
 moving to the next step. If a user asks about a technique, explain it simply.
 ```
+
+Available tools injected into every Live session: `get_step_details`, `get_ingredient_info`, `set_kitchen_timer`, `navigate_recipe_step`.
+
+The model is instructed to call `get_step_details(step_number)` for full step text rather than assuming UI message content, and to use `navigate_recipe_step` only when the user actually wants to change steps (not to re-read the current step).
 
 ---
 
@@ -188,12 +203,19 @@ moving to the next step. If a user asks about a technique, explain it simply.
 
 ---
 
-## 9. Authentication & Security
+## 9. Authentication & Demo Mode
 
+### Demo Mode (Active for Hackathon)
+- On backend startup, `ensure_demo_user()` creates a `demo@crave.app` user and a fixed session token (`crave-demo-token-hackathon`) in the DB if they don't already exist.
+- `auth.js` always force-sets this token in `localStorage`, overwriting any stale token, so no login is ever required.
+- `index.html` and `signup.html` immediately redirect to `home.html`.
+- The logout button is hidden on the profile page.
+- All data (saved recipes, history, profile) is shared across all demo visitors.
+
+### Underlying Auth System (Retained)
 - Passwords hashed with SHA-256.
 - Session tokens are UUIDs stored in the `sessions` table.
-- Frontend stores token in `localStorage` as `crave_token`.
-- All recipe import, history, and profile endpoints are protected — the app requires an account to use any core feature.
+- All recipe import, history, and profile endpoints remain protected by `Authorization: Bearer <token>` — the demo token satisfies this check for every request.
 
 ---
 
