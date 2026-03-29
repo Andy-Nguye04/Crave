@@ -222,7 +222,7 @@
             </div>
 
             <!-- AI Pill Container (Tracker optimization) -->
-            <div class="w-full bg-[#191c1a] rounded-[2rem] p-4 flex items-center justify-between shadow-2xl ai-glow animate-pulse-glow transition-all duration-300 transform group hover:scale-[1.02] cursor-pointer">
+            <div class="w-full bg-[#191c1a] rounded-[2rem] p-4 flex items-center justify-between shadow-2xl ai-glow animate-pulse-glow transition-all duration-300 transform group hover:scale-[1.02]">
                 
                 <div class="flex items-center gap-4 pl-2 text-white overflow-hidden">
                     <!-- AI Status Icon (Animated Waveform) -->
@@ -240,16 +240,21 @@
                     <div class="flex flex-col h-full justify-center min-w-0">
                         <span class="text-[#b1f0ce] text-[10px] font-bold uppercase tracking-widest block font-headline">Crave Chef AI</span>
                         <p id="crave-chef-status" class="font-medium text-sm truncate opacity-90 inline-flex">
-                            Listening… Hands messy? Just ask.
+                            Voice recognition pauses automatically while the chef is talking so speaker audio is not mistaken for you; it turns back on when it is safe to speak. Tap the mic for one phrase or use quick prompts. Headphones reduce echo further.
                         </p>
                         <span id="crave-ws-status" class="text-[10px] text-white/50 truncate max-w-[200px]"></span>
                     </div>
                 </div>
 
-                <!-- Next Button Action inside the pill -->
-                <button id="crave-fast-forward" type="button" class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform">
-                    <span class="material-symbols-outlined" data-icon="fast_forward" style="font-variation-settings: 'FILL' 1;">fast_forward</span>
-                </button>
+                <!-- Mic + recap -->
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <button id="crave-voice-btn" type="button" title="Speak to the chef (Chrome/Edge, HTTPS or localhost)" class="bg-white/10 hover:bg-white/20 text-primary-fixed flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform active:scale-95">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mic</span>
+                    </button>
+                    <button id="crave-fast-forward" type="button" class="botanical-gradient text-white flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:rotate-12 transition-transform">
+                        <span class="material-symbols-outlined" data-icon="fast_forward" style="font-variation-settings: 'FILL' 1;">fast_forward</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

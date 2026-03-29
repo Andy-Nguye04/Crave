@@ -4,6 +4,9 @@ backend/.env
 *.pem
 .run*
 
+# Debug session logs (do not write these from hot paths — Live Server reload loops)
+debug-*.log
+
 # Python
 backend/.venv/
 .venv/

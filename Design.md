@@ -1,13 +1,13 @@
 # Crave — design and features (hackathon)
 
-This document describes what the repository implements for the hackathon MVP: YouTube ingestion, structured recipe JSON, and a Gemini Live (TEXT) WebSocket bridge for the sous-chef tools.
+This document describes what the repository implements for the hackathon MVP: YouTube ingestion, structured recipe JSON, and a Gemini Live WebSocket bridge (AUDIO responses with text via output transcription) for the sous-chef tools.
 
 ## Architecture
 
 - **Frontend** (`frontend/`): static HTML + Tailwind. Pages are meant to be served over **HTTP** (not `file://`) so browser `fetch` and `WebSocket` work. Use VS Code Live Server, `python -m http.server`, or any static host.
 - **Backend** (`backend/`): **FastAPI** + **Uvicorn**, **Google GenAI** (`google-genai`) for:
   - `generate_content` with JSON schema (recipe parsing; YouTube URL as `file_data`, transcript fallback).
-  - `aio.live.connect` with **TEXT** modality for the cooking WebSocket (function calling for step/ingredient/timer tools).
+  - `aio.live.connect` with **AUDIO** modality and **output audio transcription** so the browser still receives text (native Live models reject TEXT-only responses).
 
 Configurable model names and CORS live in `backend/app/config.py` (overridable via environment variables).
 
@@ -23,7 +23,8 @@ Configurable model names and CORS live in `backend/app/config.py` (overridable v
 
 - **URL**: `ws://<host>:<port>/ws/cooking/{session_id}`
 - **Client → server**: `{"type": "user_text", "text": "..."}`
-- **Server → client** (examples): `live_ready`, `model_text`, `transcription`, `tool_call`, `kitchen_timer`, `error`
+- **Server → client** (examples): `live_ready`, `model_text`, `model_audio` (base64 PCM for playback), `transcription`, `tool_call`, `kitchen_timer`, `error`
+- **Voice in the browser**: cooking mode plays `model_audio` via Web Audio; the mic button uses the Web Speech API (Chrome/Edge) to turn speech into `user_text` (not raw audio to Gemini).
 
 Tools implemented server-side: `get_step_details`, `get_ingredient_info`, `set_kitchen_timer` (timer is pushed to the UI as JSON).
 
@@ -45,4 +46,4 @@ API base URL defaults to `http://127.0.0.1:8000`. Override with `localStorage.se
 
 ## Environment
 
-Copy `backend/.env.example` to `backend/.env` and set `GEMINI_API_KEY` for real parsing and Live chat. Optional: `GEMINI_RECIPE_MODEL`, `GEMINI_LIVE_MODEL`, `CRAVE_CORS_ORIGINS`.
+Copy `backend/.env.example` to `backend/.env` and set `GEMINI_API_KEY` for real parsing and Live chat. Optional: `GEMINI_RECIPE_MODEL`, `CRAVE_GEMINI_LIVE_MODEL` (default `gemini-3.1-flash-live-preview`), `CRAVE_CORS_ORIGINS`.
